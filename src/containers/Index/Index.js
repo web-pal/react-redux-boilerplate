@@ -20,10 +20,6 @@ class IndexContainer extends Component {
           <h4 className="list-group-item-heading">Form</h4>
           <p className="list-group-item-text">Form example</p>
         </Link>
-        <a href="#" className="list-group-item">
-          <h4 className="list-group-item-heading">Object change</h4>
-          <p className="list-group-item-text">Object change example</p>
-        </a>
       </div>
     );
   }

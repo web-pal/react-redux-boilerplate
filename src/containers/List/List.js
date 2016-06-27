@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as ListActions from '../../actions/list';
+import ListLoader from '../../components/ListLoader/ListLoader';
 
 const propTypes = {
   getList: PropTypes.func.isRequired,
@@ -22,18 +23,7 @@ class ListContainer extends Component {
       <ul className="list-group" style={{ textAlign: 'center' }}>
         {this.props.isFetching &&
           Array.apply(null, { length: this.props.quantity }).map((item, key) =>
-            (<div key={key} className="timeline-wrapper list-group-item">
-              <div className="timeline-item">
-                <div className="animated-background">
-                  <div className="background-masker header-top"></div>
-                  <div className="background-masker header-left"></div>
-                  <div className="background-masker header-right"></div>
-                  <div className="background-masker header-bottom"></div>
-                  <div className="background-masker subheader-left"></div>
-                  <div className="background-masker subheader-right"></div>
-                </div>
-              </div>
-            </div>)
+            (<ListLoader key={key} />)
           )
         }
 

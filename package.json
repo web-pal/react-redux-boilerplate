@@ -1,15 +1,12 @@
 {
-  "name": "BotMeeting",
+  "name": "React_Redux_Boilerplate",
   "private": true,
   "version": "0.0.1",
-  "description": "BotMeeting project",
+  "description": "Boilerplate for react redux project",
   "scripts": {
     "lint": "eslint src *.js",
     "start": "node server.js",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.production.babel.js --progress --profile --colors"
-  },
-  "browser": {
-    "joi": "joi-browser"
   },
   "dependencies": {
     "bootstrap": "3.3.6",
@@ -21,7 +18,9 @@
     "react-redux": "4.4.5",
     "react-router": "2.5.1",
     "react-router-redux": "4.0.5",
-    "redux": "3.5.2"
+    "redux": "3.5.2",
+    "redux-form": "5.2.5",
+    "revalidate": "0.2.1"
   },
   "devDependencies": {
     "babel-cli": "6.10.1",
