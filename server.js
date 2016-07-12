@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const config = require('./webpack.config.development');
 
+/* eslint-disable no-console, no-unused-vars, consistent-return */
 new WebpackDevServer(webpack(config), {
   publicPath: config.output.publicPath,
   hot: true,

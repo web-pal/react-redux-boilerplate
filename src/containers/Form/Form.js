@@ -12,6 +12,7 @@ const isValidEmail = createValidator(
     if (value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
       return message;
     }
+    return null;
   },
   'Invalid email address'
 );
@@ -43,7 +44,9 @@ const propTypes = {
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 class FormContainer extends Component {
+  /* eslint-disable no-unused-vars */
   handleSubmit(value, dispatch) {
+  /* eslint-enable no-unused-vars */
     return sleep(1000) // simulate server latency
       .then(() => {
         throw new SubmissionError({ email: 'User already exist', _error: 'Form failed!' });

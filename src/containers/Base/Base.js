@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 
 const propTypes = {
@@ -6,15 +6,11 @@ const propTypes = {
 };
 
 
-class BaseContainer extends Component {
-  render() {
-    return (
-      <div className="row">
-        {this.props.children}
-      </div>
-    );
-  }
-}
+const BaseContainer = (props) => (
+  <div className="row">
+    {props.children}
+  </div>
+);
 
 
 BaseContainer.propTypes = propTypes;
