@@ -1,14 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { reduxForm } from 'redux-form';
+import { Field, reduxForm, SubmissionError } from 'redux-form';
 import {
   createValidator,
   composeValidators,
   combineValidators,
   isRequired
 } from 'revalidate';
-
-const fields = ['email', 'password'];
-
 
 const isValidEmail = createValidator(
   message => value => {
@@ -27,53 +24,75 @@ const validate = combineValidators({
   password: isRequired({ message: 'Required' })
 });
 
+const renderField = field => (
+  <div className={`form-group ${(!field.touched || field.error === undefined) ? '' : 'has-error'}`}>
+    <label>{field.label}</label>
+    {field.touched && field.error && <label className="error">{field.error}</label>}
+    <input {...field.input} className="form-control" />
+  </div>
+);
+
+
 const propTypes = {
-  fields: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  resetForm: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired
 };
 
 
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
 class FormContainer extends Component {
   handleSubmit(value, dispatch) {
-    // In production here we will use fetch.js
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        reject({ email: 'User already exist', _error: 'Registration failed!' });
-        // Without error we can run our internal action or dispatch results
-        // using dispatch object
-      }, 1000); // simulate server latency
-    });
+    return sleep(1000) // simulate server latency
+      .then(() => {
+        throw new SubmissionError({ email: 'User already exist', _error: 'Form failed!' });
+      });
+      /* In production here we will use fetch.js
+      return fetch('/url',
+        { method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          }
+          body: JSON.stringify(value)
+        })
+        .then(response =>
+          (response.json())
+        )
+        .then(json => {
+          if (json.status === 'success') {
+            console.log('Success!');
+            dispatch({ action: 'Action',});
+          }
+          throw new SubmissionError({
+            email: json.message, _error: 'Auth failed!' }
+          );
+        });
+      */
   }
 
   render() {
-    const { fields: { email, password }, resetForm, handleSubmit, submitting } = this.props;
+    const { handleSubmit, submitting, reset } = this.props;
     return (
       <div>
         <div className="col-md-3" />
         <div className="col-md-6 col-offset-3">
           <form onSubmit={handleSubmit(this.handleSubmit)}>
-            <div className="form-group">
-              <label>Email address</label>
-              <input type="email" className="form-control" placeholder="Email" {...email} />
-              {email.touched && email.error &&
-                <span className="help-block">
-                  <p className="text-danger">{email.error}</p>
-                </span>
-              }
-            </div>
-            <div className="form-group">
-              <label>Password</label>
-              <input
-                type="password" className="form-control" placeholder="Password" {...password}
-              />
-              {password.touched && password.error &&
-                <span className="help-block">
-                  <p className="text-danger">{password.error}</p>
-                </span>
-              }
-            </div>
+            <Field
+              name="email"
+              type="email"
+              label="Email address"
+              component={renderField}
+              placeholder="Email"
+            />
+            <Field
+              name="password"
+              type="password"
+              label="Password"
+              component={renderField}
+              placeholder="Password"
+            />
             <button type="submit" disabled={submitting} className="btn btn-default">
               {submitting ? <i /> : <i />} Submit
             </button>
@@ -81,7 +100,7 @@ class FormContainer extends Component {
               type="button"
               className="btn btin-default"
               style={{ marginLeft: '10px' }}
-              disabled={submitting} onClick={resetForm}
+              disabled={submitting} onClick={reset}
             >
               Clear Values
             </button>
@@ -97,6 +116,5 @@ FormContainer.propTypes = propTypes;
 
 export default reduxForm({
   form: 'FormContainer',
-  fields,
   validate
 })(FormContainer);
