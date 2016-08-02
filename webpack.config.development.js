@@ -4,8 +4,9 @@ const webpack = require('webpack');
 /* eslint-enable global-require, react/jsx-first-prop-new-line */
 
 module.exports = {
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'eval',
   entry: [
+    'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/only-dev-server',
     './src/index'
