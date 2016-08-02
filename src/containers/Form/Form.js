@@ -27,9 +27,11 @@ const validate = combineValidators({
 
 const renderField = field => (
   <div className={`form-group ${(!field.touched || field.error === undefined) ? '' : 'has-error'}`}>
-    <label>{field.label}</label>
-    {field.touched && field.error && <label className="error">{field.error}</label>}
-    <input {...field.input} className="form-control" />
+    <label htmlFor={`${field.name}-id`}>{field.label}</label>
+    {field.touched && field.error &&
+      <label htmlFor={`${field.name}-id`} className="error">{field.error}</label>
+    }
+    <input id={`${field.name}-id`} {...field.input} className="form-control" />
   </div>
 );
 

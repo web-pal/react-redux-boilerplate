@@ -1,6 +1,3 @@
-/* eslint-disable global-require */
-require('babel-polyfill');
-/* eslint-enable global-require */
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
@@ -13,6 +10,8 @@ import configureStore from './store/configureStore';
 
 import '../node_modules/bootstrap/less/bootstrap.less';
 import './assets/custom.less';
+
+require('babel-polyfill');
 
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);

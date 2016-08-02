@@ -9,7 +9,7 @@ const InitialState = Record({
   list: []
 });
 /* eslint-enable new-cap */
-const initialState = new InitialState;
+const initialState = new InitialState();
 
 
 export default function tables(state = initialState, action) {
