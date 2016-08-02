@@ -10,7 +10,9 @@
     "react/jsx-first-prop-new-line": 0,
     "react/require-render-return": 0,
     "comma-dangle": 0,
-    "no-use-before-define": 0
+    "no-use-before-define": 0,
+    "react/jsx-filename-extension": 0,
+    "import/no-extraneous-dependencies": 0
   },
   "plugins": [
     "react"
