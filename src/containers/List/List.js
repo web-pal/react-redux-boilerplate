@@ -22,7 +22,7 @@ class ListContainer extends Component {
     return (
       <ul className="list-group" style={{ textAlign: 'center' }}>
         {this.props.isFetching &&
-          Array.apply(null, { length: this.props.quantity }).map((item, key) =>
+          Array.apply({ length: this.props.quantity }).map((item, key) =>
             (<ListLoader key={key} />)
           )
         }
