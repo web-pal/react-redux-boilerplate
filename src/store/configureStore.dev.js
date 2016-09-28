@@ -7,7 +7,6 @@ import { routerMiddleware } from 'react-router-redux';
 import { browserHistory } from 'react-router';
 
 import rootReducer from '../reducers';
-import DevTools from '../components/DevTools/DevTools';
 
 const reduxRouterMiddleware = routerMiddleware(browserHistory);
 const middleware = [
@@ -19,7 +18,6 @@ const middleware = [
 function configureStore(initialState) {
   const store = createStore(rootReducer, initialState, compose(
     applyMiddleware(...middleware),
-    window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument(),
     persistState(
       window.location.href.match(
         /[?&]debug_session=([^&]+)\b/
