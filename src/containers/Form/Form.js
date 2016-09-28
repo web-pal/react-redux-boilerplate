@@ -8,7 +8,7 @@ import {
 } from 'revalidate';
 
 const isValidEmail = createValidator(
-  message => value => {
+  message => (value) => {
     if (value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
       return message;
     }
@@ -25,21 +25,30 @@ const validate = combineValidators({
   password: isRequired({ message: 'Required' })
 });
 
-const renderField = field => (
-  <div className={`form-group ${(!field.touched || field.error === undefined) ? '' : 'has-error'}`}>
-    <label htmlFor={`${field.name}-id`}>{field.label}</label>
-    {field.touched && field.error &&
-      <label htmlFor={`${field.name}-id`} className="error">{field.error}</label>
+
+/* eslint-disable react/prop-types */
+const renderField = ({ input, label, placeholder, type, name, meta: { touched, error } }) => (
+  <div className={`form-group ${(!touched || error === undefined) ? '' : 'has-error'}`}>
+    <label htmlFor={`${name}-id`}>{label}</label>
+    {touched && error &&
+      <label htmlFor={`${name}-id`} className="error">{error}</label>
     }
-    <input id={`${field.name}-id`} {...field.input} className="form-control" />
+    <input
+      id={`${name}-id`}
+      className="form-control"
+      placeholder={placeholder}
+      type={type}
+      {...input}
+    />
   </div>
 );
-
+/* eslint-enable react/prop-types */
 
 const propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired
+  submitting: PropTypes.bool.isRequired,
+  pristine: PropTypes.bool.isRequired
 };
 
 
@@ -47,7 +56,7 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 class FormContainer extends Component {
   /* eslint-disable no-unused-vars */
-  handleSubmit(value, dispatch) {
+  static handleSubmit(value, dispatch) {
   /* eslint-enable no-unused-vars */
     return sleep(1000) // simulate server latency
       .then(() => {
@@ -78,12 +87,13 @@ class FormContainer extends Component {
   }
 
   render() {
-    const { handleSubmit, submitting, reset } = this.props;
+    const { handleSubmit, pristine, submitting, reset } = this.props;
+
     return (
       <div>
         <div className="col-md-3" />
         <div className="col-md-6 col-offset-3">
-          <form onSubmit={handleSubmit(this.handleSubmit)}>
+          <form onSubmit={handleSubmit(FormContainer.handleSubmit)}>
             <Field
               name="email"
               type="email"
@@ -105,7 +115,8 @@ class FormContainer extends Component {
               type="button"
               className="btn btin-default"
               style={{ marginLeft: '10px' }}
-              disabled={submitting} onClick={reset}
+              disabled={pristine || submitting}
+              onClick={reset}
             >
               Clear Values
             </button>
