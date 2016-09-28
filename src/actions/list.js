@@ -8,7 +8,7 @@ export const GET_LIST = 'GET_LIST';
 
 
 export function getList(quantity) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch({ type: GET_LIST_START, quantity });
     /*
     fetch(`url`,
@@ -22,7 +22,7 @@ export function getList(quantity) {
     */
     setTimeout(() => {
       const list = [];
-      for (let i = 0; i < quantity; i++) {
+      for (let i = 0; i < quantity; i += 1) {
         list.push({
           id: i,
           firstName: faker.name.firstName(),

@@ -5,7 +5,7 @@ const propTypes = {
 };
 
 
-const ListLoader = (props) => (
+const ListLoader = props => (
   <div {...props} className="timeline-wrapper list-group-item">
     <div className="timeline-item">
       <div className="animated-background">

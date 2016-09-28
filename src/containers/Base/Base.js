@@ -6,9 +6,9 @@ const propTypes = {
 };
 
 
-const BaseContainer = (props) => (
+const BaseContainer = ({ children }) => (
   <div className="row">
-    {props.children}
+    {children}
   </div>
 );
 
