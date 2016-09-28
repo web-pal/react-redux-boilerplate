@@ -19,15 +19,17 @@ class ListContainer extends Component {
   }
 
   render() {
+    const { isFetching, quantity, list } = this.props;
+
     return (
       <ul className="list-group" style={{ textAlign: 'center' }}>
-        {this.props.isFetching &&
-          Array.apply({ length: this.props.quantity }).map((item, key) =>
+        {isFetching &&
+          Array.from(Array(quantity)).map((item, key) =>
             (<ListLoader key={key} />)
           )
         }
 
-        {this.props.list.map((item) =>
+        {list.map(item =>
           <li key={item.id} className="list-group-item">{item.firstName} {item.lastName}</li>
         )}
       </ul>
