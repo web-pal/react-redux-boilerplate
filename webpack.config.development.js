@@ -1,10 +1,8 @@
-/* eslint-disable global-require, react/jsx-first-prop-new-line */
 const path = require('path');
 const webpack = require('webpack');
-/* eslint-enable global-require, react/jsx-first-prop-new-line */
 
 module.exports = {
-  devtool: 'eval',
+  devtool: 'eval-source-map',
   entry: [
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:3000',
