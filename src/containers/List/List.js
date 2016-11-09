@@ -1,37 +1,70 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import faker from 'faker';
 
 import * as ListActions from '../../actions/list';
-import ListLoader from '../../components/ListLoader/ListLoader';
+import { getList } from '../../utils/selectors';
+import ListItem from '../../components/ListItem/ListItem';
+
 
 const propTypes = {
   getList: PropTypes.func.isRequired,
-  list: PropTypes.array.isRequired,
-  quantity: PropTypes.number,
-  isFetching: PropTypes.bool
+  addItemToList: PropTypes.func.isRequired,
+  removeItemFromList: PropTypes.func.isRequired,
+  editItemFromList: PropTypes.func.isRequired,
+  list: ImmutablePropTypes.list.isRequired,
+  listIsLoading: PropTypes.bool.isRequired
 };
 
 
 class ListContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.addItemToList = this.addItemToList.bind(this);
+    this.removeItemFromList = this.removeItemFromList.bind(this);
+  }
+
   componentWillMount() {
-    this.props.getList(100);
+    this.props.getList();
+  }
+
+  addItemToList() {
+    return this.props.addItemToList({
+      firstName: faker.name.firstName(),
+      lastName: faker.name.lastName(),
+      ...ListActions.schemas.list.getDefaults()
+    });
+  }
+
+  removeItemFromList(itemId) {
+    return () => {
+      this.props.removeItemFromList(itemId);
+    };
   }
 
   render() {
-    const { isFetching, quantity, list } = this.props;
+    const { listIsLoading, list, editItemFromList } = this.props;
 
     return (
       <ul className="list-group" style={{ textAlign: 'center' }}>
-        {isFetching &&
-          Array.from(Array(quantity)).map((item, key) =>
-            (<ListLoader key={key} />)
-          )
+        {listIsLoading ?
+          <h1>List is loading...</h1> :
+          <div>
+            <button onClick={this.addItemToList}>
+              Add new item
+            </button>
+            {list.map(item =>
+              <ListItem
+                key={item.get('id')}
+                item={item}
+                editItemFromList={editItemFromList}
+                removeItemFromList={this.removeItemFromList(item.get('id'))}
+              />
+            )}
+          </div>
         }
-
-        {list.map(item =>
-          <li key={item.id} className="list-group-item">{item.firstName} {item.lastName}</li>
-        )}
       </ul>
     );
   }
@@ -40,11 +73,10 @@ class ListContainer extends Component {
 
 ListContainer.propTypes = propTypes;
 
-function mapStateToProps(state) {
+function mapStateToProps({ list, ui }) {
   return {
-    list: state.list.list,
-    quantity: state.list.quantity,
-    isFetching: state.list.isFetching
+    listIsLoading: ui.get('listIsLoading'),
+    list: getList(list)
   };
 }
 

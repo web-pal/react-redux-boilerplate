@@ -1,12 +1,9 @@
 import React from 'react';
 
 
-const propTypes = {
-};
-
-
-const ListLoader = props => (
-  <div {...props} className="timeline-wrapper list-group-item">
+/* http://cloudcannon.com/deconstructions/2014/11/15/facebook-content-placeholder-deconstruction.html */
+const ListLoader = () => (
+  <div className="timeline-wrapper list-group-item">
     <div className="timeline-item">
       <div className="animated-background">
         <div className="background-masker header-top" />
@@ -19,7 +16,5 @@ const ListLoader = props => (
     </div>
   </div>
 );
-
-ListLoader.propTypes = propTypes;
 
 export default ListLoader;
