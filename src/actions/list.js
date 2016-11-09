@@ -1,10 +1,9 @@
 import { normalize, Schema, arrayOf } from 'normalizr';
 
+import * as types from './actionTypes';
 import fetch from '../utils/fetch';
 import config from '../config';
 
-
-export const CHANGE_ENDPOINT_LOADING_STATE = 'CHANGE_ENDPOINT_LOADING_STATE';
 
 export const schemas = {
   list: new Schema(
@@ -18,22 +17,16 @@ export const schemas = {
 };
 
 
-export const FILL_LIST = 'FILL_LIST';
-export const ADD_LIST_ITEM = 'ADD_LIST_ITEM';
-export const REMOVE_LIST_ITEM = 'REMOVE_LIST_ITEM';
-export const EDIT_LIST_ITEM = 'EDIt_LIST_ITEM';
-export const CHANGE_ITEM_PROCESS_STATE = 'CHANGE_ITEM_PROCESS_STATE';
-
 export function getList() {
   return (dispatch) => {
     dispatch({
-      type: CHANGE_ENDPOINT_LOADING_STATE,
+      type: types.CHANGE_ENDPOINT_LOADING_STATE,
       meta: { endpoint: 'list' },
       payload: true
     });
     fetch(`${config.baseUrl}/list`).then((jsonData) => {
       dispatch({
-        type: CHANGE_ENDPOINT_LOADING_STATE,
+        type: types.CHANGE_ENDPOINT_LOADING_STATE,
         meta: { endpoint: 'list' },
         payload: false
       });
@@ -43,7 +36,7 @@ export function getList() {
       });
 
       dispatch({
-        type: FILL_LIST,
+        type: types.FILL_LIST,
         payload: {
           ids: response.result.list,
           map: response.entities.list
@@ -56,7 +49,7 @@ export function getList() {
 export function addItemToList(newItem) {
   return (dispatch, getState) => {
     dispatch({
-      type: CHANGE_ENDPOINT_LOADING_STATE,
+      type: types.CHANGE_ENDPOINT_LOADING_STATE,
       meta: { endpoint: 'listAdd' },
       payload: true
     });
@@ -71,39 +64,40 @@ export function addItemToList(newItem) {
       jsonData.id = (parseInt(lastId, 10) + 1).toString();
 
       dispatch({
-        type: CHANGE_ENDPOINT_LOADING_STATE,
+        type: types.CHANGE_ENDPOINT_LOADING_STATE,
         meta: { endpoint: 'listAdd' },
         payload: false
       });
 
       dispatch({
-        type: ADD_LIST_ITEM,
+        type: types.ADD_LIST_ITEM,
         payload: jsonData
       });
     });
   };
 }
 
+
+export function changeItemListProcessState(id, action, payload) {
+  return {
+    type: types.CHANGE_LIST_ITEM_PROCESS_STATE,
+    meta: { id, action },
+    payload
+  };
+}
+
 export function removeItemFromList(id) {
   return (dispatch) => {
-    dispatch({
-      type: CHANGE_ITEM_PROCESS_STATE,
-      meta: { id, action: 'remove' },
-      payload: true
-    });
+    dispatch(changeItemListProcessState(id, 'remove', true));
 
-    fetch(
+    return fetch(
       `${config.baseUrl}/list`,
       { method: 'DELETE', body: JSON.stringify({ id }) }
     ).then(() => {
-      dispatch({
-        type: CHANGE_ITEM_PROCESS_STATE,
-        meta: { id, action: 'remove' },
-        payload: false
-      });
+      dispatch(changeItemListProcessState(id, 'remove', false));
 
       dispatch({
-        type: REMOVE_LIST_ITEM,
+        type: types.REMOVE_LIST_ITEM,
         payload: id
       });
     });
@@ -112,24 +106,16 @@ export function removeItemFromList(id) {
 
 export function editItemFromList(id, data) {
   return (dispatch) => {
-    dispatch({
-      type: CHANGE_ITEM_PROCESS_STATE,
-      meta: { id, action: 'edit' },
-      payload: true
-    });
+    dispatch(changeItemListProcessState(id, 'edit', true));
 
-    fetch(
+    return fetch(
       `${config.baseUrl}/list`,
       { method: 'PATCH', body: JSON.stringify(data) }
     ).then(() => {
-      dispatch({
-        type: CHANGE_ITEM_PROCESS_STATE,
-        meta: { id, action: 'edit' },
-        payload: false
-      });
+      dispatch(changeItemListProcessState(id, 'edit', false));
 
       dispatch({
-        type: EDIT_LIST_ITEM,
+        type: types.EDIT_LIST_ITEM,
         meta: { id },
         payload: data
       });

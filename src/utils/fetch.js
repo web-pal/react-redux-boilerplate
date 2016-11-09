@@ -10,7 +10,7 @@ function createFakeResponses() {
     fetchMock.reset();
     fetchMock.mock(
       `${config.baseUrl}/list`,
-      new Promise(res => setTimeout(res, 2000)).then(() => {
+      new Promise(res => setTimeout(res, config.fakeDelay)).then(() => {
         const list = [];
         for (let i = 1; i < 301; i += 1) {
           list.push({

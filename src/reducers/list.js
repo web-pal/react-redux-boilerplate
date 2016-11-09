@@ -1,6 +1,6 @@
 import { Record, Map, List, fromJS } from 'immutable';
 
-import * as types from '../actions/list';
+import * as types from '../actions/actionTypes';
 
 /* eslint-disable new-cap */
 const InitialState = Record({
