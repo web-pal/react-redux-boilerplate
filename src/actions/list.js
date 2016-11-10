@@ -62,7 +62,7 @@ export function addItemToList(newItem) {
       if (config.fakeFetch) {
         // On real project use data returned from the server
         jsonData = newItem;
-        const lastId = getState().list.get('listIds').last();
+        const lastId = getState().list.allIds.last();
         jsonData.id = (parseInt(lastId, 10) + 1).toString();
       }
 

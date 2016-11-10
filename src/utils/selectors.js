@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
-const getListIds = state => (state.get('listIds'));
-const getListMap = state => (state.get('listMap'));
+const getListIds = state => (state.allIds);
+const getListMap = state => (state.byId);
 
 
 export const getList = createSelector(

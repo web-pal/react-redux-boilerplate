@@ -47,7 +47,7 @@ describe('list actions', () => {
 
   // removeItemFromList()
   it('creates REMOVE_LIST_ITEM and CHANGE_LIST_ITEM_PROCESS_STATE when removeItemFromList fired', () => {
-    const id = 10;
+    const id = '10';
     const expectedActions = [
       { type: types.CHANGE_LIST_ITEM_PROCESS_STATE, meta: { id, action: 'remove' }, payload: true },
       { type: types.CHANGE_LIST_ITEM_PROCESS_STATE, meta: { id, action: 'remove' }, payload: false },
@@ -68,7 +68,7 @@ describe('list actions', () => {
 
   // editItemInList()
   it('creates EDIT_LIST_ITEM and CHANGE_LIST_ITEM_PROCESS_STATE when editItemFromList fired', () => {
-    const id = 10;
+    const id = '10';
     const firstName = 'test';
     const lastName = 'test';
     const expectedActions = [
@@ -90,7 +90,7 @@ describe('list actions', () => {
 
   // addItemToList()
   it('creates ADD_LIST_ITEM and CHANGE_ENDPOINT_LOADING_STATE when addItemToList fired', () => {
-    const id = 10;
+    const id = '10';
     const firstName = 'test';
     const lastName = 'test';
     const listItem = { firstName, lastName, id };
