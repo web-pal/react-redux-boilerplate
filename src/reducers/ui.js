@@ -1,6 +1,6 @@
 import { Record } from 'immutable';
 
-import { CHANGE_ENDPOINT_LOADING_STATE } from '../actions/list';
+import { CHANGE_ENDPOINT_LOADING_STATE } from '../actions/actionTypes';
 
 /* eslint-disable new-cap */
 const InitialState = Record({

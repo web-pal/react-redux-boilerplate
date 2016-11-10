@@ -1,14 +1,51 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import expect from 'expect';
+import nock from 'nock';
 import * as types from '../actionTypes';
 import * as actions from '../list';
+import config from '../../config';
+
+require('isomorphic-fetch');
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe('list actions', () => {
+  afterEach(() => {
+    nock.cleanAll();
+  });
   window.localStorage = { jwt: 'testJWT' };
+
+  // getList()
+  it('creates FILL_LIST and CHANGE_ENDPOINT_LOADING_STATE when getList fired', () => {
+    const ids = ['1'];
+    const item = {
+      1: {
+        id: '1',
+        ...actions.schemas.list.getDefaults()
+      }
+    };
+    const map = { ...item };
+
+    const expectedActions = [
+      { type: types.CHANGE_ENDPOINT_LOADING_STATE, meta: { endpoint: 'list' }, payload: true },
+      { type: types.CHANGE_ENDPOINT_LOADING_STATE, meta: { endpoint: 'list' }, payload: false },
+      { type: types.FILL_LIST, payload: { ids, map } }
+    ];
+    const store = mockStore();
+
+    nock(config.baseUrl)
+      .get('/list')
+      .reply(200, [{ id: '1' }]);
+
+    return store.dispatch(actions.getList())
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+  });
+
+  // removeItemFromList()
   it('creates REMOVE_LIST_ITEM and CHANGE_LIST_ITEM_PROCESS_STATE when removeItemFromList fired', () => {
     const id = 10;
     const expectedActions = [
@@ -18,14 +55,20 @@ describe('list actions', () => {
     ];
     const store = mockStore();
 
+    // Mock fetch request
+    nock(config.baseUrl)
+      .delete('/list')
+      .reply(200, { success: true });
+
     return store.dispatch(actions.removeItemFromList(id))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });
   });
 
+  // editItemInList()
   it('creates EDIT_LIST_ITEM and CHANGE_LIST_ITEM_PROCESS_STATE when editItemFromList fired', () => {
-    const id = 9;
+    const id = 10;
     const firstName = 'test';
     const lastName = 'test';
     const expectedActions = [
@@ -35,7 +78,35 @@ describe('list actions', () => {
     ];
     const store = mockStore();
 
-    return store.dispatch(actions.editItemFromList(id, { firstName, lastName }))
+    nock(config.baseUrl)
+       .intercept('/list', 'PATCH')
+      .reply(200, { success: true });
+
+    return store.dispatch(actions.editItemInList(id, { firstName, lastName }))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+  });
+
+  // addItemToList()
+  it('creates ADD_LIST_ITEM and CHANGE_ENDPOINT_LOADING_STATE when addItemToList fired', () => {
+    const id = 10;
+    const firstName = 'test';
+    const lastName = 'test';
+    const listItem = { firstName, lastName, id };
+
+    const expectedActions = [
+      { type: types.CHANGE_ENDPOINT_LOADING_STATE, meta: { endpoint: 'listAdd' }, payload: true },
+      { type: types.CHANGE_ENDPOINT_LOADING_STATE, meta: { endpoint: 'listAdd' }, payload: false },
+      { type: types.ADD_LIST_ITEM, payload: listItem }
+    ];
+    const store = mockStore();
+
+    nock(config.baseUrl)
+      .post('/list')
+      .reply(200, listItem);
+
+    return store.dispatch(actions.addItemToList(listItem))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });

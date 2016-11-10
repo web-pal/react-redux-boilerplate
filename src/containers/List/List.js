@@ -13,9 +13,10 @@ const propTypes = {
   getList: PropTypes.func.isRequired,
   addItemToList: PropTypes.func.isRequired,
   removeItemFromList: PropTypes.func.isRequired,
-  editItemFromList: PropTypes.func.isRequired,
+  editItemInList: PropTypes.func.isRequired,
   list: ImmutablePropTypes.list.isRequired,
-  listIsLoading: PropTypes.bool.isRequired
+  listIsLoading: PropTypes.bool.isRequired,
+  listAddIsLoading: PropTypes.bool.isRequired
 };
 
 
@@ -45,7 +46,7 @@ class ListContainer extends Component {
   }
 
   render() {
-    const { listIsLoading, list, editItemFromList } = this.props;
+    const { listIsLoading, listAddIsLoading, list, editItemInList } = this.props;
 
     return (
       <ul className="list-group" style={{ textAlign: 'center' }}>
@@ -53,13 +54,16 @@ class ListContainer extends Component {
           <h1>List is loading...</h1> :
           <div>
             <button onClick={this.addItemToList}>
-              Add new item
+              {listAddIsLoading ?
+                <span>In process...</span> :
+                <span>Add new item</span>
+              }
             </button>
             {list.map(item =>
               <ListItem
                 key={item.get('id')}
                 item={item}
-                editItemFromList={editItemFromList}
+                editItemInList={editItemInList}
                 removeItemFromList={this.removeItemFromList(item.get('id'))}
               />
             )}
@@ -76,6 +80,7 @@ ListContainer.propTypes = propTypes;
 function mapStateToProps({ list, ui }) {
   return {
     listIsLoading: ui.get('listIsLoading'),
+    listAddIsLoading: ui.get('listAddIsLoading'),
     list: getList(list)
   };
 }

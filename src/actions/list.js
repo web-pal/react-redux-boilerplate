@@ -24,7 +24,7 @@ export function getList() {
       meta: { endpoint: 'list' },
       payload: true
     });
-    fetch(`${config.baseUrl}/list`).then((jsonData) => {
+    return fetch(`${config.baseUrl}/list`).then((jsonData) => {
       dispatch({
         type: types.CHANGE_ENDPOINT_LOADING_STATE,
         meta: { endpoint: 'list' },
@@ -54,14 +54,17 @@ export function addItemToList(newItem) {
       payload: true
     });
 
-    fetch(
+    return fetch(
       `${config.baseUrl}/list`,
       { method: 'POST', body: JSON.stringify(newItem) }
-    ).then(() => {
-      // On real project use data returned from the server data
-      const jsonData = newItem;
-      const lastId = getState().list.get('listIds').last();
-      jsonData.id = (parseInt(lastId, 10) + 1).toString();
+    ).then((json) => {
+      let jsonData = json;
+      if (config.fakeFetch) {
+        // On real project use data returned from the server
+        jsonData = newItem;
+        const lastId = getState().list.get('listIds').last();
+        jsonData.id = (parseInt(lastId, 10) + 1).toString();
+      }
 
       dispatch({
         type: types.CHANGE_ENDPOINT_LOADING_STATE,
@@ -104,7 +107,7 @@ export function removeItemFromList(id) {
   };
 }
 
-export function editItemFromList(id, data) {
+export function editItemInList(id, data) {
   return (dispatch) => {
     dispatch(changeItemListProcessState(id, 'edit', true));
 

@@ -1,7 +1,7 @@
 import fetchMock from 'fetch-mock';
-import faker from 'faker';
 
 import config from '../config';
+import { generateFakeList } from '../utils/helpers';
 
 
 function createFakeResponses() {
@@ -10,17 +10,7 @@ function createFakeResponses() {
     fetchMock.reset();
     fetchMock.mock(
       `${config.baseUrl}/list`,
-      new Promise(res => setTimeout(res, config.fakeDelay)).then(() => {
-        const list = [];
-        for (let i = 1; i < 301; i += 1) {
-          list.push({
-            id: i.toString(),
-            firstName: faker.name.firstName(),
-            lastName: faker.name.lastName()
-          });
-        }
-        return list;
-      })
+      new Promise(res => setTimeout(res, config.fakeDelay)).then(() => (generateFakeList(300)))
     );
   }
 }

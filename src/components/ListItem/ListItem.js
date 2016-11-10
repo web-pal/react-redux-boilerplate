@@ -5,7 +5,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 
 const propTypes = {
   item: ImmutablePropTypes.map.isRequired,
-  editItemFromList: PropTypes.func.isRequired,
+  editItemInList: PropTypes.func.isRequired,
   removeItemFromList: PropTypes.func.isRequired
 };
 
@@ -26,7 +26,11 @@ class ListItem extends Component {
       if (this.state.editMode && !state) {
         this.editItemInList();
       }
-      this.setState({ editMode: state });
+      this.setState({ editMode: state }, () => {
+        if (state) {
+          this.node.focus();
+        }
+      });
     };
   }
 
@@ -36,7 +40,7 @@ class ListItem extends Component {
     if (value !== `${item.get('firstName')} ${item.get('lastName')}`) {
       const firstName = value.split(' ')[0];
       const lastName = value.split(' ')[1];
-      this.props.editItemFromList(item.get('id'), { firstName, lastName });
+      this.props.editItemInList(item.get('id'), { firstName, lastName });
     }
   }
 

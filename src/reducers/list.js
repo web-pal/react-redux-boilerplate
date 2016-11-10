@@ -42,7 +42,7 @@ export default function list(state = initialState, action) {
           )
         )
       );
-    case types.CHANGE_ITEM_PROCESS_STATE:
+    case types.CHANGE_LIST_ITEM_PROCESS_STATE:
       return state.update(
         'listMap',
         map => (
