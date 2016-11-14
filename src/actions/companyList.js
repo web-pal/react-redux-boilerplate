@@ -5,17 +5,52 @@ import fetch from '../utils/fetch';
 import config from '../config';
 
 
-export const schemas = {
-  list: new Schema(
-    'list', {
-      defaults: {
-        removeInprocess: false,
-        editInprocess: false
-      }
-    }
-  ),
-};
+// export const schemas = {
+//   list: new Schema(
+//     'list', {
+//       defaults: {
+//         removeInprocess: false,
+//         editInprocess: false
+//       }
+//     }),
+//   employees: new Schema('employees', {
+//     defaults: {
+//       removeInprocess: false,
+//       editInprocess: false
+//     }
+//   }
+//   ),
+// };
 
+// schemas.list.define({
+//   company: ,
+//   employees: arrayOf(schemas.employees)
+// })
+
+// const list = new Schema('list', { idAttribute: 'id' });
+// const employees = new Schema('employees', { idAttribute: 'id' });
+
+// list.define({
+//   employees: arrayOf(employees)
+// })
+
+
+const list = new Schema('list')
+
+const employees = new Schema('employees')
+
+employees.define({
+  companyName: list
+});
+
+list.define({
+  employees: arrayOf(employees)
+});
+
+// const list = new Schema('list');
+// list.define({
+
+// })
 
 export function getList() {
   return (dispatch) => {
@@ -24,7 +59,7 @@ export function getList() {
       meta: { endpoint: 'list' },
       payload: true
     });
-    return fetch(`${config.baseUrl}/list`).then((jsonData) => {
+    return fetch(`${config.baseUrl}/companies`).then((jsonData) => {
       dispatch({
         type: types.CHANGE_ENDPOINT_LOADING_STATE,
         meta: { endpoint: 'list' },
@@ -32,9 +67,11 @@ export function getList() {
       });
 
       const response = normalize({ list: jsonData }, {
-        list: arrayOf(schemas.list)
+        list: arrayOf(list),
+        employees: arrayOf(employees)
       });
       console.log(response);
+
       dispatch({
         type: types.FILL_LIST,
         payload: {
@@ -55,7 +92,7 @@ export function addItemToList(newItem) {
     });
 
     return fetch(
-      `${config.baseUrl}/list`,
+      `${config.baseUrl}/companies`,
       { method: 'POST', body: JSON.stringify(newItem) }
     ).then((json) => {
       let jsonData = json;
@@ -94,7 +131,7 @@ export function removeItemFromList(id) {
     dispatch(changeItemListProcessState(id, 'remove', true));
 
     return fetch(
-      `${config.baseUrl}/list`,
+      `${config.baseUrl}/companies`,
       { method: 'DELETE', body: JSON.stringify({ id }) }
     ).then(() => {
       dispatch(changeItemListProcessState(id, 'remove', false));
@@ -112,7 +149,7 @@ export function editItemInList(id, data) {
     dispatch(changeItemListProcessState(id, 'edit', true));
 
     return fetch(
-      `${config.baseUrl}/list`,
+      `${config.baseUrl}/companies`,
       { method: 'PATCH', body: JSON.stringify(data) }
     ).then(() => {
       dispatch(changeItemListProcessState(id, 'edit', false));
