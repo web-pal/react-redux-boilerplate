@@ -6,8 +6,8 @@ import { toggleEmployee } from '../../actions/companyList';
 
 const propTypes = {
   item: ImmutablePropTypes.map.isRequired,
-  showEmployee: ImmutablePropTypes.map.isRequired,
-  employee: ImmutablePropTypes.map.isRequired,
+  showEmployee: PropTypes.bool.isRequired,
+  employee: ImmutablePropTypes.list.isRequired,
   toggleEmployeeFunc: PropTypes.func.isRequired
 };
 
