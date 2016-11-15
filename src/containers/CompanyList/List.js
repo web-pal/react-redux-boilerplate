@@ -19,7 +19,6 @@ class ListContainer extends Component {
 
   render() {
     const { listIsLoading, list } = this.props;
-
     return (
       <ul className="list-group" style={{ textAlign: 'center' }}>
         {listIsLoading ?

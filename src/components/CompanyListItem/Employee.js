@@ -31,7 +31,7 @@ function mapStateToProps({ companyList }, ownProps) {
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    removeEmployee: () => dispatch(removeEmployeeCreator(ownProps.item.get('id')))
+    removeEmployee: () => dispatch(removeEmployeeCreator(ownProps.item.get('id'), ownProps.companyId))
   };
 }
 

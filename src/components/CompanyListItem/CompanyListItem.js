@@ -19,9 +19,11 @@ const CompanyListItem = ({ item, showEmployee, employee, toggleEmployeeFunc }) =
         {item.get('companyName')}
       </span>
       <button onClick={() => toggleEmployeeFunc()} >{ showEmployee ? 'Hide employee' : 'Show employee' }</button>
-      <ul>
+      <ul>{
+        console.log(employee.toJS())
+      }
         {
-          showEmployee ? employee.map(emp => <Employee key={emp.get('id')} item={emp} />) : ''
+          showEmployee ? employee.map(emp => <Employee key={emp.get('id')} item={emp} companyId={item.get('id')} />) : ''
         }
       </ul>
     </span>
@@ -31,10 +33,9 @@ const CompanyListItem = ({ item, showEmployee, employee, toggleEmployeeFunc }) =
 CompanyListItem.propTypes = propTypes;
 
 function mapStateToProps({ companyList }, ownProps) {
-  const getEmployee = getEmployeeList();
   return {
     showEmployee: companyList.showEmployee.get(ownProps.item.get('id')),
-    employee: getEmployee(companyList, ownProps)
+    employee: getEmployeeList(companyList, ownProps)
   };
 }
 

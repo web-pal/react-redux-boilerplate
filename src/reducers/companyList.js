@@ -16,6 +16,11 @@ function itemsById(state = new Map(), action) {
   switch (action.type) {
     case types.FILL_COMPANY_LIST:
       return fromJS(action.payload.companyMap);
+    case types.REMOVE_EMPLOYEE: {
+      const newEmployeeList = state.get(action.payload.companyId).get('employee').filter(emp => emp !== action.payload.employee);
+      const newCompany = state.get(action.payload.companyId).set('employee', newEmployeeList);
+      return state.set(action.payload.companyId, newCompany);
+    }
     default:
       return state;
   }
@@ -26,7 +31,7 @@ function employeeById(state = new Map(), action) {
     case types.FILL_COMPANY_LIST:
       return fromJS(action.payload.employeeMap);
     case types.REMOVE_EMPLOYEE:
-      return state.remove(action.payload.employee);
+      return state.filter(item => item.get('id') !== action.payload.employee);
     default:
       return state;
   }
