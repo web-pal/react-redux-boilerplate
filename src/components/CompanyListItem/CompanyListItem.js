@@ -19,9 +19,7 @@ const CompanyListItem = ({ item, showEmployee, employee, toggleEmployeeFunc }) =
         {item.get('companyName')}
       </span>
       <button onClick={() => toggleEmployeeFunc()} >{ showEmployee ? 'Hide employee' : 'Show employee' }</button>
-      <ul>{
-        console.log(employee.toJS())
-      }
+      <ul>
         {
           showEmployee ? employee.map(emp => <Employee key={emp.get('id')} item={emp} companyId={item.get('id')} />) : ''
         }
