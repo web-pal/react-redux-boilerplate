@@ -18,7 +18,7 @@ export function getCompanyList() {
   return (dispatch) => {
     dispatch({
       type: types.CHANGE_ENDPOINT_LOADING_STATE,
-      meta: { endpoint: 'companyListR' },
+      meta: { endpoint: 'companyList' },
       payload: true
     });
     return fetch(`${config.baseUrl}/company_list`).then((jsonData) => {
