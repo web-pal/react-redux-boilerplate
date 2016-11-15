@@ -9,3 +9,7 @@ export const getList = createSelector(
   (ids, map) => (ids.map(item => map.get(item.toString())).reverse())
 );
 
+export const getCompaniesList = createSelector(
+  [getListIds, getListMap],
+  (ids, companies) => (ids.map(item => companies.get(item)))
+);
