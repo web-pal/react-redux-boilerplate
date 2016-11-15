@@ -5,6 +5,7 @@ import { CHANGE_ENDPOINT_LOADING_STATE } from '../actions/actionTypes';
 /* eslint-disable new-cap */
 const InitialState = Record({
   listIsLoading: false,
+  companyListIsLoading: false,
   listAddIsLoading: false
 });
 /* eslint-enable new-cap */
@@ -19,4 +20,3 @@ export default function ui(state = initialState, action) {
       return state;
   }
 }
-
