@@ -1,8 +1,8 @@
-import React, { Component, PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import { bindActionCreators } from 'redux';
 import faker from 'faker';
+import React, { PropTypes, Component } from 'react';
 
 import * as ListActions from '../../actions/list';
 import { getList } from '../../utils/selectors';
@@ -73,7 +73,6 @@ class ListContainer extends Component {
     );
   }
 }
-
 
 ListContainer.propTypes = propTypes;
 
