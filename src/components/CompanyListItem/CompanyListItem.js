@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Employee from './Employee';
 import { toggleEmployee } from '../../actions/companyList';
+import { getEmployeeList } from '../../utils/selectors';
 
 const propTypes = {
   item: ImmutablePropTypes.map.isRequired,
@@ -30,10 +31,10 @@ const CompanyListItem = ({ item, showEmployee, employee, toggleEmployeeFunc }) =
 CompanyListItem.propTypes = propTypes;
 
 function mapStateToProps({ companyList }, ownProps) {
-  const employeeList = ownProps.item.get('employee');
+  const getEmployee = getEmployeeList();
   return {
     showEmployee: companyList.showEmployee.get(ownProps.item.get('id')),
-    employee: employeeList.map(emp => companyList.employee.get(emp))
+    employee: getEmployee(companyList, ownProps)
   };
 }
 

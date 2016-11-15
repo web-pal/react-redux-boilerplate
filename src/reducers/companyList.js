@@ -25,6 +25,8 @@ function employeeById(state = new Map(), action) {
   switch (action.type) {
     case types.FILL_COMPANY_LIST:
       return fromJS(action.payload.employeeMap);
+    case types.REMOVE_EMPLOYEE:
+      return state.remove(action.payload.employee);
     default:
       return state;
   }
@@ -42,9 +44,21 @@ function toggleEmployeeVisibility(state = new Map(), action) {
   }
 }
 
+function changeEmployeeState(state = new Map(), action) {
+  switch (action.type) {
+    case types.FILL_COMPANY_LIST:
+      return fromJS(action.payload.employeeMap).map(() => '');
+    case types.CHANGE_EMP_STATE:
+      return state.set(action.payload.id, action.payload.state);
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   byId: itemsById,
   allIds: allItems,
   employee: employeeById,
-  showEmployee: toggleEmployeeVisibility
+  showEmployee: toggleEmployeeVisibility,
+  employeeStatus: changeEmployeeState
 });
