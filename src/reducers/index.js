@@ -5,6 +5,7 @@ import {
 } from 'react-router-redux';
 
 import list from './list';
+import companyList from './companyList';
 import ui from './ui';
 
 
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   routing: routerReducer,
   form: formReducer,
   list,
+  companyList,
   ui
 });
 
