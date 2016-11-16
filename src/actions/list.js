@@ -34,7 +34,6 @@ export function getList() {
       const response = normalize({ list: jsonData }, {
         list: arrayOf(schemas.list)
       });
-
       dispatch({
         type: types.FILL_LIST,
         payload: {

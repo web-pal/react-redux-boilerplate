@@ -6,12 +6,14 @@ import {
 
 import list from './list';
 import ui from './ui';
+import companies from './companies';
 
 
 const rootReducer = combineReducers({
   routing: routerReducer,
   form: formReducer,
   list,
+  companies,
   ui
 });
 
