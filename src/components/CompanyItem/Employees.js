@@ -6,11 +6,9 @@ const propTypes = {
 };
 
 const Employee = ({ item }) => (
-  <li className="list-group-item">
-    <span>
-      {item.get('firstName')} {item.get('lastName')}
-    </span>
-  </li>
+  <span>
+    {item.get('firstName')} {item.get('lastName')}
+  </span>
 );
 
 Employee.propTypes = propTypes;

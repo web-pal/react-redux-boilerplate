@@ -47,4 +47,26 @@ export function getList() {
   };
 }
 
-export default getList;
+const changeEmployeeProcessState = (id, state) => ({
+  type: types.CHANGE_EMP_STATE,
+  payload: {
+    id, state
+  }
+});
+
+export const removeEmployeeCreator = (companyId, id) => (dispatch) => {
+  dispatch(changeEmployeeProcessState(id, ' ...removing'));
+  return fetch(
+     `${config.baseUrl}/companies`,
+     { method: 'DELETE', body: JSON.stringify({ id }) }
+   ).then(() => {
+     dispatch(changeEmployeeProcessState(id, ''));
+     dispatch({
+       type: types.REMOVE_EMPLOYEE,
+       payload: {
+         employee: id,
+         companyId
+       }
+     });
+   });
+};
