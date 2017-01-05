@@ -8,7 +8,7 @@ import config from '../config';
 export const listDefaults = {
   removeInprocess: false,
   editInprocess: false
-}
+};
 
 export const schemas = {
   list: new schema.Entity(
@@ -42,7 +42,6 @@ export function getList() {
         type: types.FETCH_LIST_STATE,
         payload: false
       });
-
     });
   };
 }
@@ -75,7 +74,6 @@ export function addItemToList(newItem) {
         type: types.ADD_LIST_STATE,
         payload: false
       });
-
     });
   };
 }
