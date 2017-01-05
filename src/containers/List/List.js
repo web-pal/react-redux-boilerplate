@@ -35,7 +35,7 @@ class ListContainer extends Component {
     return this.props.addItemToList({
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
-      ...ListActions.schemas.list.getDefaults()
+      ...ListActions.listDefaults
     });
   }
 
@@ -77,10 +77,10 @@ class ListContainer extends Component {
 
 ListContainer.propTypes = propTypes;
 
-function mapStateToProps({ list, ui }) {
+function mapStateToProps({ list }) {
   return {
-    listIsLoading: ui.get('listIsLoading'),
-    listAddIsLoading: ui.get('listAddIsLoading'),
+    listIsLoading: list.meta.get('fetching'),
+    listAddIsLoading: list.meta.get('addInProcess'),
     list: getList(list)
   };
 }

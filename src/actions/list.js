@@ -1,17 +1,19 @@
-import { normalize, Schema, arrayOf } from 'normalizr';
+import { normalize, schema } from 'normalizr';
 
 import * as types from './actionTypes';
 import fetch from '../utils/fetch';
 import config from '../config';
 
 
+export const listDefaults = {
+  removeInprocess: false,
+  editInprocess: false
+}
+
 export const schemas = {
-  list: new Schema(
+  list: new schema.Entity(
     'list', {
-      defaults: {
-        removeInprocess: false,
-        editInprocess: false
-      }
+      processStrategy: value => ({ ...value, ...listDefaults })
     }
   ),
 };
@@ -20,19 +22,12 @@ export const schemas = {
 export function getList() {
   return (dispatch) => {
     dispatch({
-      type: types.CHANGE_ENDPOINT_LOADING_STATE,
-      meta: { endpoint: 'list' },
+      type: types.FETCH_LIST_STATE,
       payload: true
     });
     return fetch(`${config.baseUrl}/list`).then((jsonData) => {
-      dispatch({
-        type: types.CHANGE_ENDPOINT_LOADING_STATE,
-        meta: { endpoint: 'list' },
-        payload: false
-      });
-
       const response = normalize({ list: jsonData }, {
-        list: arrayOf(schemas.list)
+        list: [schemas.list]
       });
 
       dispatch({
@@ -42,6 +37,12 @@ export function getList() {
           map: response.entities.list
         }
       });
+
+      dispatch({
+        type: types.FETCH_LIST_STATE,
+        payload: false
+      });
+
     });
   };
 }
@@ -49,8 +50,7 @@ export function getList() {
 export function addItemToList(newItem) {
   return (dispatch, getState) => {
     dispatch({
-      type: types.CHANGE_ENDPOINT_LOADING_STATE,
-      meta: { endpoint: 'listAdd' },
+      type: types.ADD_LIST_STATE,
       payload: true
     });
 
@@ -67,15 +67,15 @@ export function addItemToList(newItem) {
       }
 
       dispatch({
-        type: types.CHANGE_ENDPOINT_LOADING_STATE,
-        meta: { endpoint: 'listAdd' },
-        payload: false
-      });
-
-      dispatch({
         type: types.ADD_LIST_ITEM,
         payload: jsonData
       });
+
+      dispatch({
+        type: types.ADD_LIST_STATE,
+        payload: false
+      });
+
     });
   };
 }

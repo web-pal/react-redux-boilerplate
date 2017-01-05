@@ -38,7 +38,19 @@ function itemsById(state = new Map(), action) {
   }
 }
 
+function meta(state = new Map({ fetching: false, addInProcess: false }), action) {
+  switch (action.type) {
+    case types.FETCH_LIST_STATE:
+      return state.set('fetching', action.payload);
+    case types.ADD_LIST_STATE:
+      return state.set('addInProcess', action.payload);
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   byId: itemsById,
-  allIds: allItems
+  allIds: allItems,
+  meta
 });
