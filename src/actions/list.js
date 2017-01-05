@@ -12,7 +12,7 @@ export const listDefaults = {
 
 export const schemas = {
   list: new schema.Entity(
-    'list', {
+    'list', {}, {
       processStrategy: value => ({ ...value, ...listDefaults })
     }
   ),

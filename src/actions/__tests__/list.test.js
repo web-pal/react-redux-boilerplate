@@ -18,20 +18,20 @@ describe('list actions', () => {
   window.localStorage = { jwt: 'testJWT' };
 
   // getList()
-  it('creates FILL_LIST and CHANGE_ENDPOINT_LOADING_STATE when getList fired', () => {
+  it('creates FILL_LIST and FETCH_LIST_STATE when getList fired', () => {
     const ids = ['1'];
     const item = {
       1: {
         id: '1',
-        ...actions.schemas.list.getDefaults()
+        ...actions.listDefaults
       }
     };
     const map = { ...item };
 
     const expectedActions = [
-      { type: types.CHANGE_ENDPOINT_LOADING_STATE, meta: { endpoint: 'list' }, payload: true },
-      { type: types.CHANGE_ENDPOINT_LOADING_STATE, meta: { endpoint: 'list' }, payload: false },
-      { type: types.FILL_LIST, payload: { ids, map } }
+      { type: types.FETCH_LIST_STATE, payload: true },
+      { type: types.FILL_LIST, payload: { ids, map } },
+      { type: types.FETCH_LIST_STATE, payload: false }
     ];
     const store = mockStore();
 
@@ -89,16 +89,16 @@ describe('list actions', () => {
   });
 
   // addItemToList()
-  it('creates ADD_LIST_ITEM and CHANGE_ENDPOINT_LOADING_STATE when addItemToList fired', () => {
+  it('creates ADD_LIST_ITEM and ADD_LIST_STATE when addItemToList fired', () => {
     const id = '10';
     const firstName = 'test';
     const lastName = 'test';
     const listItem = { firstName, lastName, id };
 
     const expectedActions = [
-      { type: types.CHANGE_ENDPOINT_LOADING_STATE, meta: { endpoint: 'listAdd' }, payload: true },
-      { type: types.CHANGE_ENDPOINT_LOADING_STATE, meta: { endpoint: 'listAdd' }, payload: false },
-      { type: types.ADD_LIST_ITEM, payload: listItem }
+      { type: types.ADD_LIST_STATE, payload: true },
+      { type: types.ADD_LIST_ITEM, payload: listItem },
+      { type: types.ADD_LIST_STATE, payload: false }
     ];
     const store = mockStore();
 
