@@ -15,8 +15,6 @@ export function getCompanies() {
         companies: [schemas.companies]
       });
 
-      console.log(response);
-
       dispatch({
         type: types.FILL_COMPANIES,
         payload: {

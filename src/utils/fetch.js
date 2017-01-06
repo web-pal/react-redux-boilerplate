@@ -14,7 +14,7 @@ function createFakeResponses() {
     );
     fetchMock.mock(
       `${config.baseUrl}/companies`,
-      new Promise(res => setTimeout(res, config.fakeDelay)).then(() => (generateFakeCompanies(5)))
+      new Promise(res => res()).then(() => (generateFakeCompanies(5)))
     );
   }
 }
