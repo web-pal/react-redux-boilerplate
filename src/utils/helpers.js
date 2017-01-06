@@ -11,3 +11,14 @@ export function generateFakeList(quantity) {
   }
   return list;
 }
+
+export function generateFakeCompanies(quantity) {
+  const companies = [];
+  for (let i = 1; i < quantity + 1; i += 1) {
+    companies.push({
+      id: i.toString(),
+      companyName: faker.company.companyName()
+    });
+  }
+  return companies;
+}
