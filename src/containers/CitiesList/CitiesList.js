@@ -19,6 +19,9 @@ class CitiesListContiner extends Component {
     console.log('cities ',citiesList);
     return (
       <ul className="list-group" style={{textAlign: 'center'}}>
+        <ul className="list-group" >{
+          citiesList.map(item => <li className="list-group-item" key={item.get('id')}>City: {item.get('city')}</li>)
+        }</ul>
         {isLoading
           ? <div>Loading.....</div>
           : (citiesList.map(item =>
@@ -27,9 +30,7 @@ class CitiesListContiner extends Component {
             item={item}
           />
         ))}
-        <ul className="list-group" >{
-          citiesList.map(item => <li className="list-group-item" key={item.get('id')}>City: {item.get('city')}</li>)
-      }</ul>
+
       </ul>
     );
   }
