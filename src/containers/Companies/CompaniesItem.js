@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import * as CompaniesActions from '../../actions/companies';
 import { getEmployees } from '../../utils/selectors';
-import Employee from './Employee';
+import Employee from '../../components/Employee/Employee';
 
 const propTypes = {
   item: ImmutablePropTypes.map.isRequired,

@@ -5,7 +5,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import * as CompaniesActions from '../../actions/companies';
 import { getCompanies } from '../../utils/selectors';
-import CompaniesItem from '../../components/CompaniesItem/CompaniesItem';
+import CompaniesItem from './CompaniesItem';
 
 const propTypes = {
   getCompanies: PropTypes.func.isRequired,
