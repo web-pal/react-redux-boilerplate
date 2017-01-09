@@ -4,22 +4,25 @@ import * as types from './actionTypes';
 import fetch from '../utils/fetch';
 import config from '../config';
 
-export const schemas = {
-  companies: new schema.Entity('companies'),
-};
+
+export const employee = new schema.Entity('employees');
+export const company = new schema.Entity('companies', {
+  employees: [employee]
+});
 
 export function getCompanies() {
   return (dispatch) => {
     return fetch(`${config.baseUrl}/companies`).then((jsonData) => {
       const response = normalize({ companies: jsonData }, {
-        companies: [schemas.companies]
+        companies: [company]
       });
 
       dispatch({
         type: types.FILL_COMPANIES,
         payload: {
-          ids: response.result.companies,
-          map: response.entities.companies
+          companyIds: response.result.companies,
+          companyMap: response.entities.companies,
+          employeesMap: response.entities.employees
         }
       });
     });

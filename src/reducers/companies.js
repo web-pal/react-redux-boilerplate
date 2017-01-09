@@ -9,7 +9,7 @@ function companiesItems(state = new List(), action) {
     case types.ADD_COMPANIES_ITEM:
       return;
     case types.FILL_COMPANIES:
-      return fromJS(action.payload.ids);
+      return fromJS(action.payload.companyIds);
     default:
       return state;
   }
@@ -20,7 +20,18 @@ function companiesItemsById(state = new Map(), action) {
     case types.ADD_COMPANIES_ITEM:
       return;
     case types.FILL_COMPANIES:
-      return fromJS(action.payload.map);
+      return fromJS(action.payload.companyMap);
+    default:
+      return state;
+  }
+}
+
+function employeeById(state = new Map(), action) {
+  switch (action.type) {
+    case types.ADD_COMPANIES_ITEM:
+      return;
+    case types.FILL_COMPANIES:
+      return fromJS(action.payload.employeesMap);
     default:
       return state;
   }
@@ -28,5 +39,6 @@ function companiesItemsById(state = new Map(), action) {
 
 export default combineReducers({
   companiesAllIds: companiesItems,
-  companiesById: companiesItemsById
+  companiesById: companiesItemsById,
+  employeesById: employeeById
 });
