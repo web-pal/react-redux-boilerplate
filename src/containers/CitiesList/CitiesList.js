@@ -2,36 +2,40 @@ import React, {Component, PropTypes} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as ListActions from '../../actions/citiesList';
-import {getNestedUsersList} from '../../utils/selectors';
-import NestedListItem from '../../components/CitiesListItem/CitiesListItem';
+import {getCities, getHabitants} from '../../utils/selectors';
+import Habitant from '../../components/Habitant/Habitant';
 
-class NestedListContainer extends Component {
+class CitiesListContiner extends Component {
   constructor(props) {
     super(props);
   }
 
   componentWillMount() {
-    this.props.getNestedList()
+    this.props.getCitiesList()
   }
 
   render() {
-    const {nestedList} = this.props;
+    const {citiesList, isLoading} = this.props;
     return (
       <ul className="list-group" style={{textAlign: 'center'}}>
-        {nestedList.map(item =>
-          <NestedListItem
+        {isLoading
+          ? <div>Loading.....</div>
+          : (citiesList.map(item =>
+          <Habitant
             key={item.get('id')}
             item={item}
           />
-        )}
+        ))}
       </ul>
     );
   }
 }
 
-function mapStateToProps ({nestedList}) {
+function mapStateToProps ({citiesList, ui}) {
   return {
-    nestedList: getNestedUsersList(nestedList)
+    isLoading: ui.get('isLoading'),
+    citiesList: getCities(citiesList)
+    // habitantsList: getHabitants(citiesList)
   };
 }
 
@@ -39,4 +43,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(ListActions, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NestedListContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CitiesListContiner);

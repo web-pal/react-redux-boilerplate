@@ -9,8 +9,10 @@ const city = new schema.Entity('cities', {
 });
 export const cities = [ city ];
 
-export function getNestedList() {
+export function getCitiesList() {
+
   return (dispatch) => {
+
     return fetch(`${config.baseUrl}/cities-list`).then((jsonData) => {
       const response = normalize({ cities: jsonData }, {
         cities
@@ -24,6 +26,8 @@ export function getNestedList() {
           habitantMap: response.entities.habitants
         }
       });
+
+      dispatch({type: types.IS_LOADING, payload: false});
     });
   };
 }

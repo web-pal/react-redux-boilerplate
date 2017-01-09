@@ -1,5 +1,5 @@
 module.exports = {
   fakeFetch: true,
-  fakeDelay: 0,
+  fakeDelay: 1000,
   baseUrl: 'https://sample-api.com/api',
 };

@@ -7,4 +7,6 @@ export const REMOVE_LIST_ITEM = 'list/REMOVE_LIST_ITEM';
 export const EDIT_LIST_ITEM = 'list/EDIT_LIST_ITEM';
 export const CHANGE_LIST_ITEM_PROCESS_STATE = 'list/CHANGE_LIST_ITEM_PROCESS_STATE';
 
+// cities
 export const FILL_CITIES_LIST = 'FILL_CITIES_LIST';
+export const IS_LOADING = 'IS_LOADING';

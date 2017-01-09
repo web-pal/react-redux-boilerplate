@@ -3,7 +3,7 @@ import {Map, List, fromJS} from 'immutable';
 
 import * as types from '../actions/actionTypes';
 
-function citiesIds(state = new List([1]), action) {
+function citiesIds(state = new List(), action) {
   switch (action.type) {
 
     case types.FILL_CITIES_LIST:
@@ -14,7 +14,7 @@ function citiesIds(state = new List([1]), action) {
   }
 }
 
-function citiesById(state = fromJS({'1': {id: 0, firstName: 'Brooklyn'}}), action) {
+function citiesById(state = new Map(), action) {
   switch (action.type) {
 
     case types.FILL_CITIES_LIST:
@@ -25,7 +25,7 @@ function citiesById(state = fromJS({'1': {id: 0, firstName: 'Brooklyn'}}), actio
   }
 }
 
-function habitantsById(state = fromJS({'1': {id: 1, firstName: 'Jack'}}), action) {
+function habitantsById(state = new Map(), action) {
   switch (action.type) {
 
     case types.FILL_CITIES_LIST:
