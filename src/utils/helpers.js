@@ -12,11 +12,18 @@ export function generateFakeList(quantity) {
   return list;
 }
 
+let id = 0;
+
+function genaratorId() {
+  id += 1;
+  return id.toString();
+}
+
 function generateFakeEmployees(quantity) {
   const employees = [];
   for (let i = 1; i < quantity + 1; i += 1) {
     employees.push({
-      id: i.toString(),
+      id: genaratorId(),
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName()
     });
