@@ -1,4 +1,6 @@
 import faker from 'faker';
+import { schemas } from '../actions/nestedList';
+import { normalize } from 'normalizr';
 
 export function generateFakeList(quantity) {
   const list = [];
@@ -18,11 +20,11 @@ export function generateFakeNestedList(quantity) {
     nestedList.push({
       id: i.toString(),
       firstName: faker.name.firstName(),
-      // categories: [
-      //   {id: (faker.random.uuid()).toString(), name: faker.commerce.product()},
-      //   {id: (faker.random.uuid()).toString(), name: faker.commerce.product()}
-      // ]
+      // city: faker.address.city()
     });
   }
   return nestedList;
 }
+
+console.log('Received data: ', generateFakeNestedList(3));
+console.log('Normalized data: ', normalize(generateFakeNestedList((3)), schemas.city));

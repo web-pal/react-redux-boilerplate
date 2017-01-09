@@ -3,31 +3,28 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as ListActions from '../../actions/nestedList';
 import {getNestedUsersList} from '../../utils/selectors';
-import ListItemDeep from '../../components/NestedListItem/NestedListItem';
+import NestedListItem from '../../components/NestedListItem/NestedListItem';
 
 class NestedListContainer extends Component {
   constructor(props) {
     super(props);
-
-    this.click = this.click.bind(this);
   }
 
   componentWillMount() {
     this.props.getNestedList()
   }
 
-  click () {
-    console.log(this.props)
-
-  }
-
   render() {
     const {nestedList} = this.props;
-
     return (
-      <div>
-        <ListItemDeep data={nestedList} />
-      </div>
+      <ul className="list-group" style={{textAlign: 'center'}}>
+        {nestedList.map(item =>
+          <NestedListItem
+            key={item.get('id')}
+            item={item}
+          />
+        )}
+      </ul>
     );
   }
 }

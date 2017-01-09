@@ -14,7 +14,7 @@ function allItems(state = new List([1]), action) {
   }
 }
 
-function itemsById(state = new Map({empty: 'not filled'}), action) {
+function itemsById(state = fromJS({'1': {id: 1, firstName: 'jack'}}), action) {
   switch (action.type) {
 
     case types.FILL_NESTED_LIST:

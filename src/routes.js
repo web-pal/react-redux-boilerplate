@@ -5,7 +5,7 @@ import Base from './containers/Base/Base';
 import Index from './containers/Index/Index';
 import List from './containers/List/List';
 import Form from './containers/Form/Form';
-import ListDeep from './containers/NestedList/NestedList';
+import NestedList from './containers/NestedList/NestedList';
 
 export const urls = {
   index: '/',
@@ -19,6 +19,6 @@ export const routes = (
     <IndexRoute component={Index} />
     <Route path={urls.list} component={List} />
     <Route path={urls.form} component={Form} />
-    <Route path={urls.listDeep} component={ListDeep} />
+    <Route path={urls.listDeep} component={NestedList} />
   </Route>
 );
