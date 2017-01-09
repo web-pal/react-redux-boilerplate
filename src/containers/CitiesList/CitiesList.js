@@ -27,9 +27,9 @@ class CitiesListContiner extends Component {
             item={item}
           />
         ))}
-        <span>{
-          citiesList.map(item => <span key={item.get('id')}>{item.get('city')}</span>)
-      }</span>
+        <ul className="list-group" >{
+          citiesList.map(item => <li className="list-group-item" key={item.get('id')}>City: {item.get('city')}</li>)
+      }</ul>
       </ul>
     );
   }

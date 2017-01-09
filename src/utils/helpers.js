@@ -27,3 +27,5 @@ export function generateFakeCitiesList(quantity) {
 
   return nestedList;
 }
+
+console.log(generateFakeCitiesList(1));
