@@ -12,12 +12,10 @@ export const company = new schema.Entity('companies', {
 
 export function getCompanies() {
   return (dispatch) => {
-    return fetch(`${config.baseUrl}/companies`).then((jsonData) => {
+    fetch(`${config.baseUrl}/companies`).then((jsonData) => {
       const response = normalize({ companies: jsonData }, {
         companies: [company]
       });
-
-      console.log(response);
 
       dispatch({
         type: types.FILL_COMPANIES,
@@ -30,6 +28,21 @@ export function getCompanies() {
     });
   };
 }
+
+// fetch(`${config.baseUrl}/companies`).then((jsonData) => {
+//   const response = normalize({ companies: jsonData }, {
+//     companies: [company]
+//   });
+
+//   dispatch({
+//     type: types.FILL_COMPANIES,
+//     payload: {
+//       companyIds: response.result.companies,
+//       companyMap: response.entities.companies,
+//       employeesMap: response.entities.employees
+//     }
+//   });
+// });
 
 export function addCompaniesItem() {
 
