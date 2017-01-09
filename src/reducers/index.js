@@ -5,12 +5,13 @@ import {
 } from 'react-router-redux';
 
 import list from './list';
-
+import nestedList from './nestedList';
 
 const rootReducer = combineReducers({
   routing: routerReducer,
   form: formReducer,
-  list
+  list,
+  nestedList
 });
 
 export default rootReducer;

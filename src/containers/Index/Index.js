@@ -17,6 +17,10 @@ const IndexContainer = () => (
       <h4 className="list-group-item-heading">Form</h4>
       <p className="list-group-item-text">Form example</p>
     </Link>
+    <Link to={urls.listDeep} className="list-group-item">
+      <h4 className="list-group-item-heading">Deep list</h4>
+      <p className="list-group-item-text">Nested object breakdown</p>
+    </Link>
   </div>
 );
 
