@@ -1,5 +1,4 @@
-import { combineReducers } from 'redux';
-import { Map, List, fromJS } from 'immutable';
+import { fromJS } from 'immutable';
 
 import * as types from '../actions/actionTypes';
 
@@ -16,6 +15,5 @@ function ui(state = defaultState, action) {
       return state;
   }
 }
-
 
 export default ui;

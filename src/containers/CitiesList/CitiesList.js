@@ -16,6 +16,7 @@ class CitiesListContiner extends Component {
 
   render() {
     const {citiesList, isLoading} = this.props;
+    console.log('cities ',citiesList);
     return (
       <ul className="list-group" style={{textAlign: 'center'}}>
         {isLoading
@@ -26,6 +27,9 @@ class CitiesListContiner extends Component {
             item={item}
           />
         ))}
+        <span>{
+          citiesList.map(item => <span key={item.get('id')}>{item.get('city')}</span>)
+      }</span>
       </ul>
     );
   }

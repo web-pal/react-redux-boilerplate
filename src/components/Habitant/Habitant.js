@@ -11,7 +11,6 @@ class Habitant extends Component {
 
   render() {
     const {item, habitants } = this.props;
-    console.log('item', item);
     return (
 
       <li className='list-group-item'>{habitants
