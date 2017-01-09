@@ -6,7 +6,7 @@ const propTypes = {};
 const NestedListItem = (props) => {
     const { item } = props;
     return (
-      <li className='list-group-item'>{item.get('firstName')}</li>
+      <li className='list-group-item'>{item.get('city')}</li>
     )
 };
 

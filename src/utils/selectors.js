@@ -2,8 +2,9 @@ import { createSelector } from 'reselect';
 
 const getListIds = state => (state.allIds);
 const getListMap = state => (state.byId);
-const getNestedListIds = state => (state.nallIds);
-const getNestedListMap = state => (state.nbyId);
+
+const getNestedListIds = state => (state.citiesIds);
+const getNestedListMap = state => (state.citiesById);
 
 export const getList = createSelector(
   [getListIds, getListMap],

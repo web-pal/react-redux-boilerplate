@@ -1,9 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import * as ListActions from '../../actions/nestedList';
+import * as ListActions from '../../actions/citiesList';
 import {getNestedUsersList} from '../../utils/selectors';
-import NestedListItem from '../../components/NestedListItem/NestedListItem';
+import NestedListItem from '../../components/CitiesListItem/CitiesListItem';
 
 class NestedListContainer extends Component {
   constructor(props) {

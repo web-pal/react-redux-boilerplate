@@ -14,7 +14,7 @@ function createFakeResponses() {
       new Promise(res => setTimeout(res, config.fakeDelay)).then(() => (generateFakeList(300)))
     );
     fetchMock.mock(
-      `${config.baseUrl}/nested-list`,
+      `${config.baseUrl}/cities-list`,
       new Promise(res => setTimeout(res, config.fakeDelay)).then(() => (generateFakeNestedList(3)))
     );
   }
