@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { bindActionCreators } from 'redux';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
@@ -12,26 +12,16 @@ const propTypes = {
   employees: ImmutablePropTypes.list.isRequired
 };
 
-class CompaniesItem extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const { item, employees } = this.props;
-    return (
-      <li>
-        {item.get('companyName')} --- 
-        {employees.map(employee =>
-          <Employee
-            key={employee.get('id')}
-            item={employee}
-          />
-        )}
-      </li>
-    );
-  }
-}
+const CompaniesItem = ({ item, employees }) =>
+  <li>
+    {item.get('companyName')}&nbsp;---&nbsp;
+    {employees.map(employee =>
+      <Employee
+        key={employee.get('id')}
+        item={employee}
+      />
+    )}
+  </li>;
 
 CompaniesItem.propTypes = propTypes;
 

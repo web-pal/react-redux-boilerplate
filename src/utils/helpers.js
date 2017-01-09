@@ -14,12 +14,12 @@ export function generateFakeList(quantity) {
 
 function generateFakeEmployees(quantity) {
   const employees = [];
-  for (let i = 1; i < quantity + 1; i++) {
+  for (let i = 1; i < quantity + 1; i += 1) {
     employees.push({
       id: i.toString(),
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName()
-    })
+    });
   }
   return employees;
 }

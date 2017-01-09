@@ -30,5 +30,5 @@ export function getCompanies() {
 }
 
 export function addCompaniesItem() {
-  console.log(11);
+
 }

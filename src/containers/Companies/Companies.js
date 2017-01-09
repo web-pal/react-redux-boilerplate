@@ -9,15 +9,11 @@ import CompaniesItem from '../../components/CompaniesItem/CompaniesItem';
 
 const propTypes = {
   getCompanies: PropTypes.func.isRequired,
-  addCompaniesItem: PropTypes.func.isRequired
-}
+  addCompaniesItem: PropTypes.func.isRequired,
+  companies: ImmutablePropTypes.list.isRequired
+};
 
 class CompaniesContainer extends Component {
-
-  constructor(props) {
-    super(props);
-  }
-
   componentWillMount() {
     this.props.getCompanies();
   }
