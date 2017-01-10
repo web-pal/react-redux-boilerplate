@@ -19,7 +19,6 @@ class CitiesListContiner extends Component {
 
   render() {
     const { citiesList, habitantsList, meta } = this.props;
-    console.log('hab', habitantsList);
     return (
       <div style={{ textAlign: 'center' }}>
         {meta.get('fetching')
@@ -31,7 +30,7 @@ class CitiesListContiner extends Component {
             <li key={habitant}>{habitant}</li>
             )}
             {/*{habitantsList.map(habitant =>*/}
-              {/*<li key={habitant.get('id')}>{habitant.get('habitants')}</li>*/}
+              {/*<li key={habitant}>{habitant}</li>*/}
             {/*)}*/}
           </ul>))}
       </div>
@@ -43,8 +42,10 @@ CitiesListContiner.propTypes = propTypes;
 
 function mapStateToProps({ citiesList, habitantsList }) {
   return {
+    // citiesList,
+    // habitantsList,
     citiesList: getCities(citiesList),
-    habitantsList: habitantsList.habitantsIds,
+    habitantsList: getHabitants(habitantsList),
     meta: citiesList.meta
   };
 }

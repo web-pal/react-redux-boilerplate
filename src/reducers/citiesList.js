@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 import { Map, List, fromJS } from 'immutable';
-
 import * as types from '../actions/actionTypes';
 
 const citiesIds = (state = new List(), action) => {
