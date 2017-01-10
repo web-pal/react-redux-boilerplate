@@ -1,31 +1,33 @@
-import React, {PropTypes, Component} from 'react';
-import {connect} from 'react-redux';
-import { getHabitants} from '../../utils/selectors';
+import React, { Component } from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import { connect } from 'react-redux';
+import { getHabitants } from '../../utils/selectors';
 
-const propTypes = {};
+const propTypes = {
+  habitants: ImmutablePropTypes.list.isRequired
+};
 
 class Habitant extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
-    const {item, habitants } = this.props;
+    console.log('habitant', this.props);
+    const { habitants } = this.props;
     return (
-
-      <ul className='list-group-item'>{habitants
-        .map(item => <li className="list-group-item" key={item.get('id')}>Habitant: {item.get('firstName')}</li>)}</ul>
-
-  )
+      <ul className="list-group-item">{habitants
+        .map(item =>
+          <li className="list-group-item" key={item.get('id')}>
+            Habitant: {item.get('firstName')} {item.get('lastName')}
+          </li>)}
+      </ul>
+    );
   }
 }
 
-function mapStateToProps({citiesList}, props) {
+Habitant.propTypes = propTypes;
+
+function mapStateToProps({ citiesList }, props) {
   return {
     habitants: getHabitants(citiesList, props)
   };
 }
 
 export default connect(mapStateToProps)(Habitant);
-
-
