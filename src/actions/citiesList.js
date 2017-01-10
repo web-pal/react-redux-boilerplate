@@ -10,7 +10,7 @@ const city = new schema.Entity('cities', {
 export const cities = [city];
 
 export const getCitiesList = () => (dispatch) => {
-  dispatch({ type: types.IS_LOADING, payload: true });
+  dispatch({ type: types.FETCH_CITIES_STATE, payload: true });
 
   return fetch(`${config.baseUrl}/cities-list`).then((jsonData) => {
     const response = normalize({ cities: jsonData }, {
@@ -26,7 +26,7 @@ export const getCitiesList = () => (dispatch) => {
       }
     });
 
-    dispatch({ type: types.IS_LOADING, payload: false });
+    dispatch({ type: types.FETCH_CITIES_STATE, payload: false });
   });
 };
 

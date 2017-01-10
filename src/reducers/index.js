@@ -13,7 +13,6 @@ const rootReducer = combineReducers({
   form: formReducer,
   list,
   citiesList,
-  ui
 });
 
 export default rootReducer;

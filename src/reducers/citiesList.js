@@ -36,9 +36,20 @@ const habitantsById = (state = new Map(), action) => {
   }
 };
 
+const meta = (state = new Map({ fetching: true }), action) => {
+  switch (action.type) {
+    case types.FETCH_CITIES_STATE:
+      return state.set('fetching', action.payload);
+
+    default:
+      return state;
+  }
+};
+
 
 export default combineReducers({
   citiesIds,
   citiesById,
-  habitantsById
+  habitantsById,
+  meta
 });
