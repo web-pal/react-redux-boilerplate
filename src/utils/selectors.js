@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import { schema, normalize } from 'normalizr';
-import { Map, List, fromJS } from 'immutable';
+import { fromJS } from 'immutable';
 
 // List
 const getListIds = state => (state.allIds);
@@ -11,88 +11,66 @@ export const getList = createSelector(
   (ids, map) => (ids.map(item => map.get(item.toString())).reverse())
 );
 
-// Cities-list
+const data = [{
+  id: '1',
+  city: 'Newtown',
+  habitants: [{
+    id: '2',
+    firstName: 'Jack',
+    lastName: 'White'
+  }, {
+    id: '3',
+    firstName: 'Mike',
+    lastName: 'Carlson'
+  }]
+}, {
+  id: '4',
+  city: 'Huston',
+  habitants: [{
+    id: '5',
+    firstName: 'Magnus',
+    lastName: 'Hellenborg'
+  }, {
+    id: '6',
+    firstName: 'Daniel',
+    lastName: 'Verban'
+  }]
+}];
+
+const habitant = new schema.Entity('habitants');
+const city = new schema.Entity('cities', {
+  habitants: [habitant]
+});
+
+const normalized = normalize(data, [city]);
+
+const citiesReducer = {
+  citiesIds: fromJS(normalized.result),
+  citiesById: fromJS(normalized.entities.cities)
+};
+
+const habitantsReducer = {
+  habitantsIds: fromJS(Object.keys(normalized.entities.habitants)),
+  habitantsById: fromJS(normalized.entities.habitants)
+};
+
 const getCitiesIds = state => (state.citiesIds);
 const getCitiesMap = state => (state.citiesById);
-const getHabitantsMap = (state, props) => props.item.get('habitants')
-  .map(habitant => state.habitantsById.get(habitant));
+
+const getHabitantsIds = state => (state.habitantsIds);
+const getHabitantsMap = state => (state.habitantsById);
 
 export const getCities = createSelector(
   [getCitiesIds, getCitiesMap],
-  (ids, map) => (ids.map(item => map.get(item.toString())).reverse())
+  (ids, map) => (ids.map(item => map.get(item.toString())))
 );
 
-export const getHabitants = createSelector(getHabitantsMap, (hab => hab));
+export const getHabitants = createSelector(
+  [getHabitantsIds, getHabitantsMap],
+  (ids, map) => (ids.map(item => map.get(item.toString())))
+);
 
-const data = [{
-  id: '123',
-  author: {
-    id: '1',
-    name: 'Paul'
-  },
-  title: 'My awesome blog post',
-  comments: [
-    {
-      id: '666',
-      commenter: {
-        id: '2',
-        name: 'Nicole'
-      }
-    }
-  ]
-}, {
-  id: '1234',
-  author: {
-    id: '1',
-    name: 'Paul'
-  },
-  title: 'My awesome blog post',
-  comments: [
-    {
-      id: '34',
-      commenter: {
-        id: '2',
-        name: 'Nicole'
-      }
-    }
-  ]
-}, {
-  id: '4123',
-  author: {
-    id: '3',
-    name: 'Jack'
-  },
-  title: 'My awesome blog post',
-  comments: [
-    {
-      id: '32',
-      commenter: {
-        id: '3',
-        name: 'Jack'
-      }
-    }
-  ]
-}];
+console.log('Cities: ', getCities(citiesReducer).toJS());
+console.log('Habitants: ', getHabitants(habitantsReducer).toJS());
 
-const user = new schema.Entity('users');
-const comment = new schema.Entity('comments', {
-  commenter: user
-});
-const article = new schema.Entity('articles', {
-  author: user,
-  comments: [comment]
-});
-const articles = [article];
-
-const articleNorm = normalize(data, articles);
-
-console.log('Initial ', data);
-console.log('Normalized ', articleNorm);
-
-const immutableArticleNorm = fromJS(articleNorm);
-console.log('Immutabled: ', immutableArticleNorm);
-
-console.log('Entities: ', immutableArticleNorm.get('entities'));
-console.log('Result: ', immutableArticleNorm.get('result'));
-
-// console.log(getCitiesIds());
+console.log(Object.keys(normalized.entities.habitants));
