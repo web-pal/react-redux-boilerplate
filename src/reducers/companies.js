@@ -7,7 +7,7 @@ import * as types from '../actions/actionTypes';
 function companiesItems(state = new List(), action) {
   switch (action.type) {
     case types.ADD_COMPANIES:
-      return state.push(action.payload.id);
+      return state.push(action.payload.companyIds);
     case types.FILL_COMPANIES:
       return fromJS(action.payload.companyIds);
     default:
@@ -18,7 +18,7 @@ function companiesItems(state = new List(), action) {
 function companiesItemsById(state = new Map(), action) {
   switch (action.type) {
     case types.ADD_COMPANIES:
-      return state.set(action.payload.id, fromJS(action.payload));
+      return state.set(action.payload.companyIds, fromJS(action.payload.companyMap[action.payload.companyIds]));
     case types.FILL_COMPANIES:
       return fromJS(action.payload.companyMap);
     default:

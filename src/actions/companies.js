@@ -13,45 +13,27 @@ export const company = new schema.Entity('companies', {
 export function getCompanies() {
   return (dispatch) => {
     fetch(`${config.baseUrl}/companies`).then((jsonData) => {
-      const employeesList = [];
-      for (let i = 0; i < jsonData.length; i += 1) {
-        for (let j = 0; j < jsonData[i].employees.length; j += 1) {
-          employeesList.push(jsonData[i].employees[j]);
-        }
-      }
 
-      const response = normalize({ companies: jsonData, employees: employeesList }, {
-        companies: [company],
-        employees: [employee]
-      });
+      const response = normalize(jsonData, [company]);
 
       dispatch({
         type: types.FILL_COMPANIES,
         payload: {
-          companyIds: response.result.companies,
-          companyMap: response.entities.companies,
-          employeesIds: response.result.employees,
+          companyIds: response.result,
+          companyMap: response.entities.companies
+        }
+      });
+
+      dispatch({
+        type: types.FILL_EMPLOYEES,
+        payload: {
+          employeesIds: Object.keys(response.entities.employees),
           employeesMap: response.entities.employees,
         }
       });
     });
   };
 }
-
-// fetch(`${config.baseUrl}/companies`).then((jsonData) => {
-//   const response = normalize({ companies: jsonData }, {
-//     companies: [company]
-//   });
-
-//   dispatch({
-//     type: types.FILL_COMPANIES,
-//     payload: {
-//       companyIds: response.result.companies,
-//       companyMap: response.entities.companies,
-//       employeesMap: response.entities.employees
-//     }
-//   });
-// });
 
 export function addCompaniesItem(newCompany) {
   return (dispatch, getState) => {
@@ -74,13 +56,18 @@ export function addCompaniesItem(newCompany) {
         });
       }
 
+      const companies = normalize(jsonData, company);
+
       dispatch({
         type: types.ADD_COMPANIES,
-        payload: jsonData
+        payload: {
+          companyIds: companies.result,
+          companyMap: companies.entities.companies
+        }
       });
 
       const employees = normalize({ employees: jsonData.employees }, {
-        employees: [employee],
+        employees: [employee]
       });
 
       dispatch({

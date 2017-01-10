@@ -11,3 +11,4 @@ export const ADD_COMPANIES = 'companies/ADD_COMPANIES';
 export const FILL_COMPANIES = 'companies/FILL_COMPANIES';
 
 export const ADD_EMPLOYEES = 'employees/ADD_EMPLOYEES';
+export const FILL_EMPLOYEES = 'employees/FILL_EMPLOYEES';

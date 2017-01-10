@@ -4,18 +4,16 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import * as CompaniesActions from '../../../actions/companies';
-import { getEmployees } from '../../../utils/selectors';
 import Employee from '../../../components/Employee/Employee';
 
 const propTypes = {
   item: ImmutablePropTypes.map.isRequired,
-  employees: ImmutablePropTypes.list.isRequired
 };
 
-const CompaniesItem = ({ item, employees }) =>
+const Company = ({ item }) =>
   <li>
     {item.get('companyName')}&nbsp;---&nbsp;
-    {employees.map(employee =>
+    {item.get('employees').toList().map(employee => employee &&
       <Employee
         key={employee.get('id')}
         item={employee}
@@ -23,16 +21,10 @@ const CompaniesItem = ({ item, employees }) =>
     )}
   </li>;
 
-CompaniesItem.propTypes = propTypes;
-
-function mapStateToProps({ employees }, props) {
-  return {
-    employees: getEmployees(employees, props)
-  };
-}
+Company.propTypes = propTypes;
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(CompaniesActions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CompaniesItem);
+export default connect(null, mapDispatchToProps)(Company);

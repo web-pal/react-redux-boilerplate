@@ -8,7 +8,7 @@ export function employeesItems(state = new List(), action) {
   switch (action.type) {
     case types.ADD_EMPLOYEES:
       return state.concat(fromJS(action.payload.employeesIds));
-    case types.FILL_COMPANIES:
+    case types.FILL_EMPLOYEES:
       return fromJS(action.payload.employeesIds);
     default:
       return state;
@@ -19,7 +19,7 @@ export function employeesItemsById(state = new Map(), action) {
   switch (action.type) {
     case types.ADD_EMPLOYEES:
       return state.concat(fromJS(action.payload.employeesMap));
-    case types.FILL_COMPANIES:
+    case types.FILL_EMPLOYEES:
       return fromJS(action.payload.employeesMap);
     default:
       return state;

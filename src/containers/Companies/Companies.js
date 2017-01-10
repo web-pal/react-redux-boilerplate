@@ -5,13 +5,13 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import faker from 'faker';
 
 import * as CompaniesActions from '../../actions/companies';
-import { getCompanies } from '../../utils/selectors';
-import CompaniesItem from './Company/Company';
+import { getListItems } from '../../utils/selectors';
+import Company from './Company/Company';
 
 const propTypes = {
   getCompanies: PropTypes.func.isRequired,
   addCompaniesItem: PropTypes.func.isRequired,
-  companies: ImmutablePropTypes.list.isRequired
+  companies: ImmutablePropTypes.map.isRequired
 };
 
 function generateEmployees(quantity) {
@@ -48,8 +48,8 @@ class CompaniesContainer extends Component {
       <div>
         <button onClick={this.addCompaniesItem}>Add company</button>
         <ul>
-          {companies.map(item =>
-            <CompaniesItem
+          {companies.toList().reverse().map(item =>
+            <Company
               key={item.get('id')}
               item={item}
             />
@@ -62,9 +62,9 @@ class CompaniesContainer extends Component {
 
 CompaniesContainer.propTypes = propTypes;
 
-function mapStateToProps({ companies }) {
+function mapStateToProps({ companies, employees }) {
   return {
-    companies: getCompanies(companies)
+    companies: getListItems({ companies, employees })
   };
 }
 
