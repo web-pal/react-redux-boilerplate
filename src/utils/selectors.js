@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import { schema, normalize } from 'normalizr';
+import { Map, List, fromJS } from 'immutable';
 
 // List
 const getListIds = state => (state.allIds);
@@ -84,6 +85,14 @@ const article = new schema.Entity('articles', {
 const articles = [article];
 
 const articleNorm = normalize(data, articles);
-console.log('normalized ', articleNorm);
+
+console.log('Initial ', data);
+console.log('Normalized ', articleNorm);
+
+const immutableArticleNorm = fromJS(articleNorm);
+console.log('Immutabled: ', immutableArticleNorm);
+
+console.log('Entities: ', immutableArticleNorm.get('entities'));
+console.log('Result: ', immutableArticleNorm.get('result'));
 
 // console.log(getCitiesIds());

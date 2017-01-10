@@ -6,7 +6,6 @@ import {
 
 import list from './list';
 import citiesList from './citiesList';
-import ui from './ui';
 
 const rootReducer = combineReducers({
   routing: routerReducer,
