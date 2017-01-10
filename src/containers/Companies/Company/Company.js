@@ -3,9 +3,9 @@ import { bindActionCreators } from 'redux';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
-import * as CompaniesActions from '../../actions/companies';
-import { getEmployees } from '../../utils/selectors';
-import Employee from '../../components/Employee/Employee';
+import * as CompaniesActions from '../../../actions/companies';
+import { getEmployees } from '../../../utils/selectors';
+import Employee from '../../../components/Employee/Employee';
 
 const propTypes = {
   item: ImmutablePropTypes.map.isRequired,
@@ -25,9 +25,9 @@ const CompaniesItem = ({ item, employees }) =>
 
 CompaniesItem.propTypes = propTypes;
 
-function mapStateToProps({ companies }, props) {
+function mapStateToProps({ employees }, props) {
   return {
-    employees: getEmployees(companies, props)
+    employees: getEmployees(employees, props)
   };
 }
 
