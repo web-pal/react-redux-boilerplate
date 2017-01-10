@@ -9,6 +9,7 @@ import Habitant from '../../components/Habitant/Habitant';
 const propTypes = {
   getCitiesList: PropTypes.func.isRequired,
   citiesList: ImmutablePropTypes.list.isRequired,
+  habitantsList: ImmutablePropTypes.list.isRequired,
   meta: PropTypes.object.isRequired
 };
 
@@ -19,6 +20,7 @@ class CitiesListContiner extends Component {
 
   render() {
     const { citiesList, habitantsList, meta } = this.props;
+    console.log(habitantsList.toJS())
     return (
       <div style={{ textAlign: 'center' }}>
         {meta.get('fetching')
@@ -26,12 +28,7 @@ class CitiesListContiner extends Component {
         : (citiesList.map(city =>
           <ul className="list-group" key={city.get('id')}>
             <h3>City: {city.get('city')}</h3>
-            {habitantsList.map(habitant =>
-            <li key={habitant}>{habitant}</li>
-            )}
-            {/*{habitantsList.map(habitant =>*/}
-              {/*<li key={habitant}>{habitant}</li>*/}
-            {/*)}*/}
+            <Habitant habitants={habitantsList} />
           </ul>))}
       </div>
     );
@@ -42,8 +39,6 @@ CitiesListContiner.propTypes = propTypes;
 
 function mapStateToProps({ citiesList, habitantsList }) {
   return {
-    // citiesList,
-    // habitantsList,
     citiesList: getCities(citiesList),
     habitantsList: getHabitants(habitantsList),
     meta: citiesList.meta
