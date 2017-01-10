@@ -6,12 +6,14 @@ import {
 
 import list from './list';
 import citiesList from './citiesList';
+import habitantsList from './habitantsList';
 
 const rootReducer = combineReducers({
   routing: routerReducer,
   form: formReducer,
   list,
   citiesList,
+  habitantsList
 });
 
 export default rootReducer;

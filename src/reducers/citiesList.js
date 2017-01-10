@@ -7,7 +7,7 @@ const citiesIds = (state = new List(), action) => {
   switch (action.type) {
 
     case types.FILL_CITIES_LIST:
-      return fromJS(action.payload.cityIds);
+      return fromJS(action.payload.citiesIds);
 
     default:
       return state;
@@ -18,18 +18,7 @@ const citiesById = (state = new Map(), action) => {
   switch (action.type) {
 
     case types.FILL_CITIES_LIST:
-      return fromJS(action.payload.cityMap);
-
-    default:
-      return state;
-  }
-};
-
-const habitantsById = (state = new Map(), action) => {
-  switch (action.type) {
-
-    case types.FILL_CITIES_LIST:
-      return fromJS(action.payload.habitantMap);
+      return fromJS(action.payload.citiesById);
 
     default:
       return state;
@@ -50,6 +39,5 @@ const meta = (state = new Map({ fetching: true }), action) => {
 export default combineReducers({
   citiesIds,
   citiesById,
-  habitantsById,
   meta
 });

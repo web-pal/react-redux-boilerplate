@@ -10,4 +10,3 @@ export const CHANGE_LIST_ITEM_PROCESS_STATE = 'list/CHANGE_LIST_ITEM_PROCESS_STA
 // cities
 export const FETCH_CITIES_STATE = '/cities-list/FETCH_CITIES_STATE';
 export const FILL_CITIES_LIST = 'cities-list/FILL_CITIES_LIST';
-export const IS_LOADING = 'cities-list/IS_LOADING';

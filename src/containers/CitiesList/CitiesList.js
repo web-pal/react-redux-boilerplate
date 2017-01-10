@@ -3,7 +3,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ListActions from '../../actions/citiesList';
-import { getCities } from '../../utils/selectors';
+import { getCities, getHabitants } from '../../utils/selectors';
 import Habitant from '../../components/Habitant/Habitant';
 
 const propTypes = {
@@ -18,18 +18,21 @@ class CitiesListContiner extends Component {
   }
 
   render() {
-    const { citiesList, meta } = this.props;
+    const { citiesList, habitantsList, meta } = this.props;
+    console.log('hab', habitantsList);
     return (
       <div style={{ textAlign: 'center' }}>
         {meta.get('fetching')
         ? <h2>Loading.....</h2>
-        : (citiesList.map(item =>
-          <ul className="list-group" key={item.get('id')}>
-            <h3>City: {item.get('city')}</h3>
-            <Habitant
-              key={item.get('id')}
-              item={item}
-            />
+        : (citiesList.map(city =>
+          <ul className="list-group" key={city.get('id')}>
+            <h3>City: {city.get('city')}</h3>
+            {habitantsList.map(habitant =>
+            <li key={habitant}>{habitant}</li>
+            )}
+            {/*{habitantsList.map(habitant =>*/}
+              {/*<li key={habitant.get('id')}>{habitant.get('habitants')}</li>*/}
+            {/*)}*/}
           </ul>))}
       </div>
     );
@@ -38,9 +41,10 @@ class CitiesListContiner extends Component {
 
 CitiesListContiner.propTypes = propTypes;
 
-function mapStateToProps({ citiesList }) {
+function mapStateToProps({ citiesList, habitantsList }) {
   return {
     citiesList: getCities(citiesList),
+    habitantsList: habitantsList.habitantsIds,
     meta: citiesList.meta
   };
 }
