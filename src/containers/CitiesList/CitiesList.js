@@ -21,19 +21,18 @@ class CitiesListContiner extends Component {
     const { citiesList, isLoading } = this.props;
     console.log('cities ', this.props);
     return (
-      <ul className="list-group" style={{textAlign: 'center'}}>
-        <ul className="list-group" >{
-          citiesList.map(item => <li className="list-group-item" key={item.get('id')}>City: {item.get('city')}</li>)
-        }</ul>
+      <div style={{ textAlign: 'center' }}>
         {isLoading.get('isLoading')
-          ? <div>Loading.....</div>
-          : (citiesList.map(item =>
+        ? <div>Loading.....</div>
+        : (citiesList.map(item =>
+          <ul className="list-group" key={item.get('id')}>
+            <h3>City: {item.get('city')}</h3>
             <Habitant
               key={item.get('id')}
               item={item}
             />
-        ))}
-      </ul>
+          </ul>))}
+      </div>
     );
   }
 }
