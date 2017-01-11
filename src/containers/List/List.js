@@ -19,7 +19,6 @@ const propTypes = {
   listAddIsLoading: PropTypes.bool.isRequired
 };
 
-
 class ListContainer extends Component {
   constructor(props) {
     super(props);

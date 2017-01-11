@@ -17,7 +17,6 @@ function allItems(state = new List(), action) {
   }
 }
 
-
 function itemsById(state = new Map(), action) {
   switch (action.type) {
     case types.FILL_LIST:

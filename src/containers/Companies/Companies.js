@@ -5,7 +5,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import faker from 'faker';
 
 import * as CompaniesActions from '../../actions/companies';
-import { getListItems } from '../../utils/selectors';
+import { getCompaniesById } from '../../utils/selectors';
 import Company from './Company/Company';
 
 const propTypes = {
@@ -51,7 +51,7 @@ class CompaniesContainer extends Component {
           {companies.toList().map(item => item &&
             <Company
               key={item.get('id')}
-              item={item}
+              id={item.get('id')}
             />
           )}
         </ul>
@@ -62,9 +62,9 @@ class CompaniesContainer extends Component {
 
 CompaniesContainer.propTypes = propTypes;
 
-function mapStateToProps({ companies, employees }) {
+function mapStateToProps({ companies }) {
   return {
-    companies: getListItems({ companies, employees })
+    companies: getCompaniesById({ companies })
   };
 }
 
