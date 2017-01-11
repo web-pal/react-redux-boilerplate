@@ -3,18 +3,6 @@ import { Map, List, fromJS } from 'immutable';
 
 import * as types from '../actions/actionTypes';
 
-
-export function employeesItems(state = new List(), action) {
-  switch (action.type) {
-    case types.ADD_EMPLOYEES:
-      return state.concat(fromJS(action.payload.employeesIds));
-    case types.FILL_EMPLOYEES:
-      return fromJS(action.payload.employeesIds);
-    default:
-      return state;
-  }
-}
-
 export function employeesItemsById(state = new Map(), action) {
   switch (action.type) {
     case types.ADD_EMPLOYEES:
@@ -27,6 +15,5 @@ export function employeesItemsById(state = new Map(), action) {
 }
 
 export default combineReducers({
-  employeesAllIds: employeesItems,
   employeesById: employeesItemsById
 });

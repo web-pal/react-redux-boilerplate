@@ -48,7 +48,7 @@ class CompaniesContainer extends Component {
       <div>
         <button onClick={this.addCompaniesItem}>Add company</button>
         <ul>
-          {companies.toList().reverse().map(item =>
+          {companies.toList().map(item => item &&
             <Company
               key={item.get('id')}
               item={item}

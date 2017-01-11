@@ -46,7 +46,7 @@ export function addCompaniesItem(newCompany) {
         // On real project use data returned from the server
         jsonData = newCompany;
         const lastCompanyId = getState().companies.companiesAllIds.last();
-        let lastEmployeeId = getState().employees.employeesAllIds.last();
+        let lastEmployeeId = getState().employees.employeesById.size;
         jsonData.id = (parseInt(lastCompanyId, 10) + 1).toString();
         jsonData.employees = jsonData.employees.map((emp) => {
           const data = Object.assign({}, emp);
