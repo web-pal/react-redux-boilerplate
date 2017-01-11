@@ -13,7 +13,6 @@ export const company = new schema.Entity('companies', {
 export function getCompanies() {
   return (dispatch) => {
     fetch(`${config.baseUrl}/companies`).then((jsonData) => {
-
       const response = normalize(jsonData, [company]);
 
       dispatch({
