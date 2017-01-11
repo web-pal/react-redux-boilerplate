@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux';
-import { Map, List, fromJS } from 'immutable';
+import { Map, fromJS } from 'immutable';
 
 import * as types from '../actions/actionTypes';
 
-export function employeesItemsById(state = new Map(), action) {
+export function employeesById(state = new Map(), action) {
   switch (action.type) {
     case types.ADD_EMPLOYEES:
-      return state.concat(fromJS(action.payload.employeesMap));
+      return state.concat(
+        fromJS(action.payload.employeesMap)
+      );
     case types.FILL_EMPLOYEES:
       return fromJS(action.payload.employeesMap);
     default:
@@ -15,5 +17,5 @@ export function employeesItemsById(state = new Map(), action) {
 }
 
 export default combineReducers({
-  employeesById: employeesItemsById
+  byId: employeesById
 });

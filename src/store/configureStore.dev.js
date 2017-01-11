@@ -8,7 +8,9 @@ import { browserHistory } from 'react-router';
 
 import rootReducer from '../reducers';
 
+/* eslint-disable no-underscore-dangle */
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+/* eslint-enable no-underscore-dangle */
 const reduxRouterMiddleware = routerMiddleware(browserHistory);
 const middleware = [
   reduxRouterMiddleware,

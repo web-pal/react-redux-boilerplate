@@ -15,7 +15,7 @@ const IndexContainer = () => (
     </Link>
     <Link to={urls.companies} className="list-group-item">
       <h4 className="list-group-item-heading">Companies</h4>
-      <p className="list-group-item-text">Companies list</p>
+      <p className="list-group-item-text">Example with nested data</p>
     </Link>
     <Link to={urls.form} className="list-group-item">
       <h4 className="list-group-item-heading">Form</h4>

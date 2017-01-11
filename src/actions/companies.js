@@ -13,22 +13,21 @@ export const company = new schema.Entity('companies', {
 export function getCompanies() {
   return (dispatch) => {
     fetch(`${config.baseUrl}/companies`).then((jsonData) => {
-
       const response = normalize(jsonData, [company]);
-
-      dispatch({
-        type: types.FILL_COMPANIES,
-        payload: {
-          companyIds: response.result,
-          companyMap: response.entities.companies
-        }
-      });
 
       dispatch({
         type: types.FILL_EMPLOYEES,
         payload: {
           employeesIds: Object.keys(response.entities.employees),
           employeesMap: response.entities.employees,
+        }
+      });
+
+      dispatch({
+        type: types.FILL_COMPANIES,
+        payload: {
+          companyIds: response.result,
+          companyMap: response.entities.companies
         }
       });
     });
@@ -45,8 +44,8 @@ export function addCompaniesItem(newCompany) {
       if (config.fakeFetch) {
         // On real project use data returned from the server
         jsonData = newCompany;
-        const lastCompanyId = getState().companies.companiesAllIds.last();
-        let lastEmployeeId = getState().employees.employeesById.size;
+        const lastCompanyId = getState().companies.allIds.last();
+        let lastEmployeeId = getState().employees.byId.size;
         jsonData.id = (parseInt(lastCompanyId, 10) + 1).toString();
         jsonData.employees = jsonData.employees.map((emp) => {
           const data = Object.assign({}, emp);
@@ -55,16 +54,6 @@ export function addCompaniesItem(newCompany) {
           return data;
         });
       }
-
-      const companies = normalize(jsonData, company);
-
-      dispatch({
-        type: types.ADD_COMPANIES,
-        payload: {
-          companyIds: companies.result,
-          companyMap: companies.entities.companies
-        }
-      });
 
       const employees = normalize({ employees: jsonData.employees }, {
         employees: [employee]
@@ -75,6 +64,17 @@ export function addCompaniesItem(newCompany) {
         payload: {
           employeesIds: employees.result.employees,
           employeesMap: employees.entities.employees
+        }
+      });
+
+
+      const companies = normalize(jsonData, company);
+
+      dispatch({
+        type: types.ADD_COMPANIES,
+        payload: {
+          companyIds: companies.result,
+          companyMap: companies.entities.companies
         }
       });
     });
