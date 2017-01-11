@@ -13,6 +13,10 @@ const IndexContainer = () => (
       <h4 className="list-group-item-heading">List</h4>
       <p className="list-group-item-text">Example with list objects</p>
     </Link>
+    <Link to={urls.companies} className="list-group-item">
+      <h4 className="list-group-item-heading">Companies</h4>
+      <p className="list-group-item-text">Companies list</p>
+    </Link>
     <Link to={urls.form} className="list-group-item">
       <h4 className="list-group-item-heading">Form</h4>
       <p className="list-group-item-text">Form example</p>

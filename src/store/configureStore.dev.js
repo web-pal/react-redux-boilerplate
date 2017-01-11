@@ -8,6 +8,7 @@ import { browserHistory } from 'react-router';
 
 import rootReducer from '../reducers';
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const reduxRouterMiddleware = routerMiddleware(browserHistory);
 const middleware = [
   reduxRouterMiddleware,
@@ -16,7 +17,7 @@ const middleware = [
 
 
 function configureStore(initialState) {
-  const store = createStore(rootReducer, initialState, compose(
+  const store = createStore(rootReducer, initialState, composeEnhancers(
     applyMiddleware(...middleware),
     persistState(
       window.location.href.match(
