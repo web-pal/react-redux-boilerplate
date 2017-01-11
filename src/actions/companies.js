@@ -79,11 +79,3 @@ export function addCompaniesItem(newCompany) {
     });
   };
 }
-
-export function getCompanyWithEmployees() {
-  return (dispatch) => {
-    fetch(`${config.baseUrl}/companies`).then((jsonData) => {
-      console.log(jsonData);
-    });
-  };
-}
