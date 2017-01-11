@@ -5,13 +5,14 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import faker from 'faker';
 
 import * as CompaniesActions from '../../actions/companies';
-import { getListItems } from '../../utils/selectors';
-import Company from './Company/Company';
+import { getCompanies, getCompanyEmployees } from '../../utils/selectors';
+import Company from '../../components/Company/Company';
 
 const propTypes = {
   getCompanies: PropTypes.func.isRequired,
+  getEmployees: PropTypes.func.isRequired,
   addCompaniesItem: PropTypes.func.isRequired,
-  companies: ImmutablePropTypes.map.isRequired
+  companies: ImmutablePropTypes.list.isRequired
 };
 
 function generateEmployees(quantity) {
@@ -31,7 +32,7 @@ class CompaniesContainer extends Component {
     this.addCompaniesItem = this.addCompaniesItem.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getCompanies();
   }
 
@@ -43,14 +44,25 @@ class CompaniesContainer extends Component {
   }
 
   render() {
-    const { companies } = this.props;
+    const { companies, getEmployees } = this.props;
     return (
       <div>
-        <button onClick={this.addCompaniesItem}>Add company</button>
+        <button
+          style={{ marginLeft: '40px' }}
+          onClick={this.addCompaniesItem}
+        >
+          Add company
+        </button>
         <ul>
-          {companies.toList().map(item => item &&
+          {companies.map(item => item &&
             <Company
               key={item.get('id')}
+              employees={
+                getEmployees(
+                  `${item.get('id')}_${item.get('employees').size}`,
+                  item.get('employees')
+                )
+              }
               item={item}
             />
           )}
@@ -64,7 +76,8 @@ CompaniesContainer.propTypes = propTypes;
 
 function mapStateToProps({ companies, employees }) {
   return {
-    companies: getListItems({ companies, employees })
+    companies: getCompanies(companies),
+    getEmployees: getCompanyEmployees(employees)
   };
 }
 

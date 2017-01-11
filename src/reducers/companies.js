@@ -28,6 +28,6 @@ function companiesItemsById(state = new Map(), action) {
 }
 
 export default combineReducers({
-  companiesAllIds: companiesItems,
-  companiesById: companiesItemsById
+  byId: companiesItemsById,
+  allIds: companiesItems
 });
