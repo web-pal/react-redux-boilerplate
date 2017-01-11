@@ -18,7 +18,7 @@ export function generateFakeCitiesList(quantity) {
   const nestedList = [];
   for (let i = 1; i < quantity + 1; i += 1) {
     nestedList.push({
-      id: id.toString(),
+      id: i.toString(),
       city: faker.address.city(),
       habitants: generateFakeList(quantity)
     });

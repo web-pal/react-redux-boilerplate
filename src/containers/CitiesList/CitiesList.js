@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ListActions from '../../actions/citiesList';
 import { getCities, getHabitants } from '../../utils/selectors';
-import Habitant from '../../components/Habitant/Habitant';
+import Habitants from '../../components/Habitants/Habitants';
 
 const propTypes = {
   getCitiesList: PropTypes.func.isRequired,
@@ -20,7 +20,6 @@ class CitiesListContiner extends Component {
 
   render() {
     const { citiesList, habitantsList, meta } = this.props;
-    const a = citiesList.map( item => item.get('habitants').toJS());
     return (
       <div style={{ textAlign: 'center' }}>
         {meta.get('fetching')
@@ -28,8 +27,8 @@ class CitiesListContiner extends Component {
         : (citiesList.map(city =>
           <ul className="list-group" key={city.get('id')}>
             <h3>City: {city.get('city')}</h3>
-            <Habitant
-              ids={a.toJS()}
+            <Habitants
+              uids={city.get('habitants')}
               habitants={habitantsList}
             />
           </ul>))}
