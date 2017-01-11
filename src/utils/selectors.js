@@ -9,7 +9,7 @@ export const getCompaniesById = state => (state.companies.companiesById);
 export const getEmployeesById = state => (state.employees.employeesById);
 
 export const getListItems = createSelector(
-  [memoize(getCompaniesById), memoize(getEmployeesById)],
-    (companies, employees) => companies.map(company => company.set('employees', company.get('employees')
-      .map(employee => employees.get(employee))))
+  [getCompaniesById, getEmployeesById],
+  (companies, employees) => companies.map(memoize(company => company.set('employees', company.get('employees')
+      .map(employee => employees.get(employee)))))
 );
