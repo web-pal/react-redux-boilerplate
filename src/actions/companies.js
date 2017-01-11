@@ -59,9 +59,9 @@ export function addCompaniesItem(newCompany) {
       const companies = normalize(jsonData, company);
 
       dispatch({
-        type: types.ADD_COMPANIES,
+        type: types.ADD_COMPANY,
         payload: {
-          companyIds: companies.result,
+          companyId: companies.result,
           companyMap: companies.entities.companies
         }
       });
