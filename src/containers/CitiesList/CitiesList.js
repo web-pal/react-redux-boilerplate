@@ -20,7 +20,7 @@ class CitiesListContiner extends Component {
 
   render() {
     const { citiesList, habitantsList, meta } = this.props;
-    console.log(habitantsList.toJS())
+    const a = citiesList.map( item => item.get('habitants').toJS());
     return (
       <div style={{ textAlign: 'center' }}>
         {meta.get('fetching')
@@ -28,7 +28,10 @@ class CitiesListContiner extends Component {
         : (citiesList.map(city =>
           <ul className="list-group" key={city.get('id')}>
             <h3>City: {city.get('city')}</h3>
-            <Habitant habitants={habitantsList} />
+            <Habitant
+              ids={a.toJS()}
+              habitants={habitantsList}
+            />
           </ul>))}
       </div>
     );

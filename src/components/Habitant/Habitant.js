@@ -5,7 +5,7 @@ const propTypes = {
   habitants: ImmutablePropTypes.list.isRequired
 };
 
-const Habitant = ({ habitants }) =>
+const Habitant = ({ habitants, ids }) =>
   <span>
     {habitants.map(habitant =>
       <li className="list-group-item" key={habitant.get('id')}>
