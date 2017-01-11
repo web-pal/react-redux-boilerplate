@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import memoize from 'lodash.memoize';
 
 // const getListIds = state => (state.allIds);
 export const getListMap = state => (state.list.byId);
@@ -8,7 +9,7 @@ export const getCompaniesById = state => (state.companies.companiesById);
 export const getEmployeesById = state => (state.employees.employeesById);
 
 export const getListItems = createSelector(
-  [getCompaniesById, getEmployeesById],
+  [memoize(getCompaniesById), memoize(getEmployeesById)],
     (companies, employees) => companies.map(company => company.set('employees', company.get('employees')
       .map(employee => employees.get(employee))))
 );

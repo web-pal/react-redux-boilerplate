@@ -18,7 +18,8 @@ function companiesItems(state = new List(), action) {
 function companiesItemsById(state = new Map(), action) {
   switch (action.type) {
     case types.ADD_COMPANIES:
-      return state.set(action.payload.companyIds, fromJS(action.payload.companyMap[action.payload.companyIds]));
+      return state.set(action.payload.companyIds,
+        fromJS(action.payload.companyMap[action.payload.companyIds]));
     case types.FILL_COMPANIES:
       return fromJS(action.payload.companyMap);
     default:
