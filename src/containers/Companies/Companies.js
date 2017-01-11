@@ -36,6 +36,10 @@ class CompaniesContainer extends Component {
     this.props.getCompanies();
   }
 
+  componentWillUnmount() {
+    this.props.getEmployees.cache.clear();
+  }
+
   addCompaniesItem() {
     return this.props.addCompaniesItem({
       companyName: faker.company.companyName(),

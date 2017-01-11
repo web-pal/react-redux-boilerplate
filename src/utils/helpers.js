@@ -12,18 +12,20 @@ export function generateFakeList(quantity) {
   return list;
 }
 
-let id = 0;
-
 export function genaratorId() {
-  id += 1;
-  return id.toString();
+  let id = 0;
+  return () => {
+    id += 1;
+    return id.toString();
+  };
 }
 
 export function generateFakeEmployees(quantity) {
   const employees = [];
+  const getId = genaratorId();
   for (let i = 1; i < quantity + 1; i += 1) {
     employees.push({
-      id: genaratorId(),
+      id: getId(),
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName()
     });
