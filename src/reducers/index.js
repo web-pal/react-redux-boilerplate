@@ -5,12 +5,15 @@ import {
 } from 'react-router-redux';
 
 import list from './list';
-
+import citiesList from './citiesList';
+import habitantsList from './habitantsList';
 
 const rootReducer = combineReducers({
   routing: routerReducer,
   form: formReducer,
-  list
+  list,
+  citiesList,
+  habitantsList
 });
 
 export default rootReducer;

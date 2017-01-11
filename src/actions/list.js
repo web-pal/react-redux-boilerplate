@@ -4,7 +4,6 @@ import * as types from './actionTypes';
 import fetch from '../utils/fetch';
 import config from '../config';
 
-
 export const listDefaults = {
   removeInprocess: false,
   editInprocess: false
@@ -17,7 +16,6 @@ export const schemas = {
     }
   ),
 };
-
 
 export function getList() {
   return (dispatch) => {
@@ -77,7 +75,6 @@ export function addItemToList(newItem) {
     });
   };
 }
-
 
 export function changeItemListProcessState(id, action, payload) {
   return {

@@ -3,7 +3,6 @@ import { Map, List, fromJS } from 'immutable';
 
 import * as types from '../actions/actionTypes';
 
-
 function allItems(state = new List(), action) {
   switch (action.type) {
     case types.FILL_LIST:
@@ -16,7 +15,6 @@ function allItems(state = new List(), action) {
       return state;
   }
 }
-
 
 function itemsById(state = new Map(), action) {
   switch (action.type) {
