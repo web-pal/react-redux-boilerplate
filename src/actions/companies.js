@@ -18,7 +18,6 @@ export function getCompanies() {
       dispatch({
         type: types.FILL_EMPLOYEES,
         payload: {
-          employeesIds: Object.keys(response.entities.employees),
           employeesMap: response.entities.employees,
         }
       });
