@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+
 import ClickOutside from 'react-click-outside';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
@@ -86,4 +88,9 @@ class ListItem extends Component {
 ListItem.propTypes = propTypes;
 
 
-export default ListItem;
+function mapStateToProps(_, initialProps) {
+  const { id } = initialProps;
+  return ({ list }) => ({ item: list.byId.get(id) });
+}
+
+export default connect(mapStateToProps)(ListItem);

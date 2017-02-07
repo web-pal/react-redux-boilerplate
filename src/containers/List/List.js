@@ -5,7 +5,6 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import faker from 'faker';
 
 import * as ListActions from '../../actions/list';
-import { getList } from '../../utils/selectors';
 import ListItem from '../../components/ListItem/ListItem';
 
 
@@ -58,12 +57,12 @@ class ListContainer extends Component {
                 <span>Add new item</span>
               }
             </button>
-            {list.map(item =>
+            {list.map(id =>
               <ListItem
-                key={item.get('id')}
-                item={item}
+                key={id}
+                id={id}
                 editItemInList={editItemInList}
-                removeItemFromList={this.removeItemFromList(item.get('id'))}
+                removeItemFromList={this.removeItemFromList(id)}
               />
             )}
           </div>
@@ -80,7 +79,7 @@ function mapStateToProps({ list }) {
   return {
     listIsLoading: list.meta.get('fetching'),
     listAddIsLoading: list.meta.get('addInProcess'),
-    list: getList(list)
+    list: list.allIds
   };
 }
 
