@@ -24,7 +24,7 @@ module.exports = {
   ],
   module: {
     rules: [{
-      test: /\.js$/,
+      test: /\.jsx?/,
       loaders: ['babel-loader'],
       exclude: /node_modules/,
       include: path.join(__dirname, 'src')
@@ -42,5 +42,8 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     dns: 'empty'
+  },
+  resolve: {
+    extensions: ['*', '.js', '.jsx'],
   }
 };
