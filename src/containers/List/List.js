@@ -60,14 +60,14 @@ class ListContainer extends Component {
                 <span>Add new item</span>
               }
             </button>
-            {list.map(id =>
+            {list.map(id => (
               <ListItem
                 key={id}
                 id={id}
                 editItemInList={editItemInList}
                 removeItemFromList={this.removeItemFromList(id)}
               />
-            )}
+            ))}
           </div>
         }
       </ul>

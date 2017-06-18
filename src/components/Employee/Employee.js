@@ -5,10 +5,11 @@ const propTypes = {
   item: ImmutablePropTypes.map.isRequired
 };
 
-const Employee = ({ item }) =>
+const Employee = ({ item }) => (
   <span>
     &nbsp;{item.get('firstName')}&nbsp;{item.get('lastName')},
-  </span>;
+  </span>
+);
 
 Employee.propTypes = propTypes;
 

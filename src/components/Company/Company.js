@@ -8,16 +8,18 @@ const propTypes = {
   employees: ImmutablePropTypes.list.isRequired
 };
 
-const Company = ({ item, employees }) =>
+const Company = ({ item, employees }) => (
   <li>
     {item.get('companyName')}&nbsp;---&nbsp;
-    {employees.map(employee =>
-      <Employee
-        key={employee.get('id')}
-        item={employee}
-      />
+      {employees.map(employee => (
+        <Employee
+          key={employee.get('id')}
+          item={employee}
+        />
+      )
     )}
-  </li>;
+  </li>
+);
 
 Company.propTypes = propTypes;
 
