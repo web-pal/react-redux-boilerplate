@@ -23,15 +23,15 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin()
   ],
   module: {
-    loaders: [{
+    rules: [{
       test: /\.js$/,
-      loaders: ['babel'],
+      loaders: ['babel-loader'],
       exclude: /node_modules/,
       include: path.join(__dirname, 'src')
     },
     {
       test: /\.less$/,
-      loaders: ['style', 'css', 'less']
+      loaders: ['style-loader', 'css-loader', 'less-loader']
     },
     {
       test: /\.(jpg|jpeg|gif|png|ico|ttf|otf|eot|svg|woff|woff2)(\?[a-z0-9]+)?$/,
