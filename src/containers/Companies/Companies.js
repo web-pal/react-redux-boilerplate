@@ -6,7 +6,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import faker from 'faker';
 
 import * as CompaniesActions from '../../actions/companies';
-import { getCompanies, getCompanyEmployees } from '../../utils/selectors';
+import { getCompanies, getCompanyEmployees } from '../../selectors/companies';
 import Company from '../../components/Company/Company';
 
 const propTypes = {
