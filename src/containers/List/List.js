@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ImmutablePropTypes from 'react-immutable-proptypes';
@@ -46,6 +47,7 @@ class ListContainer extends Component {
 
   render() {
     const { listIsLoading, listAddIsLoading, list, editItemInList } = this.props;
+
     return (
       <ul className="list-group" style={{ textAlign: 'center' }}>
         {listIsLoading ?
