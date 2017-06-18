@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import faker from 'faker';
 
+import { listDefaults } from '../../schemas/list';
 import * as ListActions from '../../actions/list';
 import ListItem from '../../components/ListItem/ListItem';
 
@@ -35,7 +36,7 @@ class ListContainer extends Component {
     return this.props.addItemToList({
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
-      ...ListActions.listDefaults
+      ...listDefaults
     });
   }
 

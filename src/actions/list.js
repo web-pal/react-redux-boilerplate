@@ -1,22 +1,9 @@
-import { normalize, schema } from 'normalizr';
+import { normalize } from 'normalizr';
 
 import * as types from './actionTypes';
+import * as schemas from '../schemas/list';
 import fetch from '../utils/fetch';
 import config from '../config';
-
-
-export const listDefaults = {
-  removeInprocess: false,
-  editInprocess: false
-};
-
-export const schemas = {
-  list: new schema.Entity(
-    'list', {}, {
-      processStrategy: value => ({ ...value, ...listDefaults })
-    }
-  )
-};
 
 
 export function getList() {

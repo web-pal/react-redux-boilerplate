@@ -4,6 +4,7 @@ import expect from 'expect';
 import nock from 'nock';
 import * as types from '../actionTypes';
 import * as actions from '../list';
+import { listDefaults } from '../../schemas/list';
 import config from '../../config';
 
 require('isomorphic-fetch');
@@ -23,7 +24,7 @@ describe('list actions', () => {
     const item = {
       1: {
         id: '1',
-        ...actions.listDefaults
+        ...listDefaults
       }
     };
     const map = { ...item };
